@@ -5,7 +5,7 @@
 [![Click here to test it out](https://github.com/nfasano/movie_recommender/blob/main/images/test.png)](https://nmfasano5-content-based-movie-recommendation-system.hf.space)
 
 ### Data sets
-1) IMDB dataset 
+1) IMDB datasets
     - Source: https://www.imdb.com/interfaces/
     - Content: titles, ratings, genres, runtime, cast and crew (birth year, death year, and known for titles). 
     - Note: This dataset is freely available for noncommercial use
