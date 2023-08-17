@@ -1,24 +1,36 @@
 # Content-based movie recommendation system
 
-### Project Description: Combining publically availabel datasets (movie-lens and IMdb) and websracped movie scripts, I built a content-based movie recommendation system
+### Project Description: 
 
-[![Click here to test it out](https://github.com/nfasano/movie_recommender/blob/main/images/test.png)](https://nmfasano5-content-based-movie-recommendation-system.hf.space)
+[![Click here to test the recommender out](https://github.com/nfasano/movie_recommender/blob/main/images/test.png)](https://nmfasano5-content-based-movie-recommendation-system.hf.space)
 
-### Data sets
-1) IMDB datasets
-    - Source: https://www.imdb.com/interfaces/
-    - Content: titles, ratings, genres, runtime, cast and crew (birth year, death year, and known for titles). 
-    - Note: This dataset is freely available for noncommercial use
-2) Movie and television scripts from IMSDb and Springfield! Springfield!
+### Introduction and Motivation
+I often find myself saying the following phrase: "I wish I can go back in time and watch movie X for the first time again." The sentiment being that I know exactly what kind of content I want to consume, but at the same time, I want it to be new content. The goal of this project was to build a movie recommender that suggests new movies to watch that are similar in content to movie X. To do that, I built a topic model from 30,000+ film scripts using Latent Dirichlet Allocation (LDA). The film script data was webscraped from various sites and combined with additional metadata from publically available datasets. Movie recommendations are made based on the similarity between the latent topics of movie X with all other movies in the database.
+
+### End-to-End Recommender System
+
+### Database curation and synthesis from different sources
+1) Movie and television scripts from IMSDb and Springfield! Springfield!
     - Source: https://imsdb.com/ and https://www.springfieldspringfield.co.uk/
-    - Content: (30,000+ films, 130,000+ tv epsiodes) movie/show title, year, genre (when available), full script
-    - Note: This dataset was webscraped. See [webscrapers](https://github.com/nfasano/movieScripts/tree/main/webscrapers) folder in this repo for the Python code
-3) Movie budget information provided by The Numbers 
-    - Source: https://www.the-numbers.com/
-    - Content: (1900+ films) production year, production budget, total domestic and international box office, movie board rating, genre, sequel and running time
-    - Note: This dataset was offered free of charge on the condition that it only be used for student projects and be acknowledged in any publication. 
+    - Content: film title, year, film script for 35,000+ movies and 130,000+ tv epsiodes 
+    - Note: This dataset was webscraped. See [scrapers](https://github.com/nfasano/movie_recsys/tree/main/database_film_scripts) folder in this repo for the notebooks used to scrape the scripts and clean the datasets.
+2) IMDb dataset
+    - Source: [IMDb dataset](https://www.imdb.com/interfaces/)
+    - Content: film title, average rating, genres, runtime, cast/crew 
+    - Note: This dataset is freely available for noncommercial use.
+3) The Movie DataBase (TMBD)
+    - Source: [themoviedb.org](https://www.themoviedb.org/?language=en-US)
+    - Note: This dataset is freely available for noncommercial use. It was primarily used for adding poster art to the recommender app.
+4) MovieLens Dataset
+    - Source: [MovieLens.com](https://movielens.org/home)
+    - Content: user_id, item_id, rating, timestamp for over 20 Million ratings provided by real users on the MovieLens website. Also provides the ids for IMDb and TMDB for all movies in their database, making it trivial to combine this dataset with IMDb and TMDB metadata.
+    - Note: This dataset is freely available for noncommercial use.
+### Data processing and feature extraction
 
-### Data Curation: 
-#### Skills demonstrated: webscraping with beautifulsoup and selenium, SQL queries
+### Building and evaluating a topic model
 
-### Data Exploration: 
+### Deploying the recommender using gradio + Hugging Face's spaces
+
+
+
+
