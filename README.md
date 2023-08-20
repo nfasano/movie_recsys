@@ -1,6 +1,6 @@
 # Content-based movie recommendation system
 
-## Project Description: 
+The deployed recommender can be tested by following [this link](https://nmfasano5-content-based-movie-recommendation-system.hf.space) or by clicking the image below. 
 
 [![Click here to test the recommender out](https://github.com/nfasano/movie_recommender/blob/main/images/test.png)](https://nmfasano5-content-based-movie-recommendation-system.hf.space)
 
