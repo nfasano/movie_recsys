@@ -68,7 +68,11 @@ def update_radio(text):
         return radio.update(choices=[], visible=False)
 
     # clean up input text of punctutation and extra white space
-    text = re.sub(" +", " ", text.replace(":", " ").replace("'", "")).lower()
+    text = (
+        re.sub(" +", " ", text.replace(":", " ").replace("'", ""))
+        .replace(".", "")
+        .lower()
+    )
 
     if re.sub(" +", "", text) == "":
         # set radio to blank if only white space remains
@@ -81,7 +85,7 @@ def update_radio(text):
         movie_list = df["movie_title"].tolist()
         movie_list_clean = [j.lower() for j in movie_list]
         movie_list_clean = [
-            re.sub(" +", " ", j.replace(":", " ").replace("'", ""))
+            re.sub(" +", " ", j.replace(":", " ").replace("'", "").replace(".", ""))
             for j in movie_list_clean
         ]
 
