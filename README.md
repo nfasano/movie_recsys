@@ -91,6 +91,13 @@ To process the script data for the LDA model, the following Natural Language Pro
 #### Model building
 - insert LDA topics plot and some topic distributions for certain movies
 
+Some drawbacks to the LDA model:
+- the number of topics is fixed and known apriori
+- the topics are static and do not capture any time evolution
+- can produce topics with words that are uncorrelated, especially in noisy datasets
+
+Follow-up works tot he LDA model, including by Blei himself, are available. In the next section we discuss one of these model variants (dynamic LDA) that may be particularly useful for this dataset and motivates future work.
+
 #### Model evaluation
 - compare two models in a heuristic fasion and show the results
 
