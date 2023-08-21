@@ -1,8 +1,18 @@
 # Content-based movie recommendation system
 
-The deployed recommender can be tested by following [this link](https://nmfasano5-content-based-movie-recommendation-system.hf.space) or by clicking the image below. 
+The deployed recommender can be tested by following [this link](https://nmfasano5-content-based-movie-recommendation-system.hf.space).
 
-[![Click here to test the recommender out](https://github.com/nfasano/movie_recommender/blob/main/images/test.png)](https://nmfasano5-content-based-movie-recommendation-system.hf.space)
+<p align="center">
+<picture>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/example_recsys_input.png" alt="drawing" width="800"/> 
+</picture>
+
+<picture>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/example_recsys_output.png" alt="drawing" width="800"/> 
+</picture>
+</p>
+
+
 
 ## Introduction and Motivation
 I often find myself saying the following phrase: "I wish I can go back in time and watch movie X for the first time again." The sentiment being that I know exactly what kind of content I want to consume, but at the same time, I want it to be new content. The goal of this project was to build a movie recommender that suggests new movies to watch that are similar in content to movie X. To do that, I built a topic model from 30,000+ film scripts using Latent Dirichlet Allocation (LDA). The film script data was webscraped from various sites and combined with additional metadata from publically available datasets. Movie recommendations are made based on the similarity between the latent topics of movie X with all other movies in the database.
