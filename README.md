@@ -32,7 +32,6 @@ The diagram begins with data engineering, where we collected disparate datasets 
 
 With a cleaned and synthesized dataset, the machine learning loop can begin. In this phase of the project, we first began by doing some exploratory data analysis to understand the richness of the dataset and then preprocessed the datasets (created a bag of words representation) into a form ready to be used for training of the model.
 
-With a 
 
 ### Data Engineering
 
@@ -61,13 +60,21 @@ To make this data usable to train our machine learning models and be available a
 3) Removed duplicate entries with identical (or nearly identical) scripts
 4) Removed data entries that only contained irrelevant script_text such as "None" or "More Movie Scripts | Request a Movie Transcript"
 
-The next step was to find matching title IDs from the websracpped script dataset with he IMDb and tmdb datasets. A few different approaches were taken to systematically find these IDs, such as matching movie titles and movie year between the script dataset and IMDb/tmdb datasets. Fortunately, the tmdb.org website provides a convenient API that can be queried for all data, including their movie IDs and the matching IMDb ID. Thus, the hardest part about synthesizing these datasets was to match the webscrapped film script dataset with the IMDb or tmdb IDs. 
+The next step was to find matching title IDs from the websracpped script dataset with he IMDb and tmdb datasets. A few different approaches were taken to systematically find these IDs, such as matching movie titles and movie year between the script dataset and IMDb/tmdb datasets. Additionally, the tmdb.org website provides a convenient API that can be queried for all data using either tmdb ID, IMDb ID, or movie title and year, which allows for finding all relevant movie data when given any one of these three. This API was particularly helpful when the tmdb ID was known but the IMDb ID was missing or when the movie title in the script dataset matched the one in the tmdb dataset but not the IMDb dataset (some movies titles, especially foreign films, can change over time).
 
 #### Database updating
-
+After synthesizing and cleaning the datasets in the data wrangling phase, there still existed some missing data or errors that were discovered during the machine learning loop or after deployment. To fix these errors in an organized manner, I wrote a notebook (data_updating.ipynb) that allows one to easily update the cleaned database on a per-entry basis similar to how SQLs UPDATE method works. 
   
 ### Machine Learning Loop
 #### Data preprocessing
+To process the script data for the LDA model, the following Natural Language Processing tasks were performed:
+- stop word removal from NLTK list of stop words
+- word mapping for words with the same meaning but different spellings (e.g. okay -> ok)
+- lemmatization
+- made the entire corpus lowercase
+- removed punctuation from entire corpus
+- bag of words representation (create vector X of size num_movies by num_words)
+
 
 <p align="center">
 <picture>
@@ -80,12 +87,15 @@ The next step was to find matching title IDs from the websracpped script dataset
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/data_preprocessing_eda_out/word_count_top_100.png" alt="drawing" width="900"/> 
 </picture>
 </p>
+
 #### Model building
+- insert LDA topics plot and some topic distributions for certain movies
+
 #### Model evaluation
+- compare two models in a heuristic fasion and show the results
 
-### Model deployment with Gradio and Hugging face spaces
-
-### Deploying the recommender using gradio + Hugging Face's spaces
+### Model deployment with Gradio and Hugging Face's spaces
+Explain gradio code in a few words, include some links
 
 
 
