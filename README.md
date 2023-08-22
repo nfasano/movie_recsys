@@ -78,13 +78,13 @@ To process the script data for the LDA model, the following Natural Language Pro
 
 <p align="center">
 <picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/data_preprocessing_eda_out/num_movies_vs_year.png" alt="drawing" width="500"/> 
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/data_preprocessing_eda_out/num_movies_vs_year.png" alt="drawing" width="800"/> 
 </picture>
 </p>
 
 <p align="center">
 <picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/data_preprocessing_eda_out/word_count_top_100.png" alt="drawing" width="900"/> 
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/data_preprocessing_eda_out/word_count_top_100.png" alt="drawing" width="800"/> 
 </picture>
 </p>
 
@@ -96,10 +96,33 @@ Some drawbacks to the LDA model:
 - the topics are static and do not capture any time evolution
 - can produce topics with words that are uncorrelated, especially in noisy datasets
 
-Follow-up works tot he LDA model, including by Blei himself, are available. In the next section we discuss one of these model variants (dynamic LDA) that may be particularly useful for this dataset and motivates future work.
+Follow-up works to the LDA model, including by Blei himself, are available. In the next section we discuss one of these model variants (dynamic LDA) that may be particularly useful for this dataset and motivates future work.
 
 #### Model evaluation
-- compare two models in a heuristic fasion and show the results
+- compare two models in a heuristic fashion and show the results
+<p align="center">
+<picture>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building_and_eval/remember_the_titans_top_topics.png" alt="drawing" width="800"/> 
+</picture>
+</p>
+
+<p align="center">
+<picture>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building_and_eval/schindlers_list_top_topics.png" alt="drawing" width="800"/> 
+</picture>
+</p>
+
+<p align="center">
+<picture>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building_and_eval/walle_top_topics.png" alt="drawing" width="800"/> 
+</picture>
+</p>
+
+<p align="center">
+<picture>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building_and_eval/select_topics.png" alt="drawing" width="800"/> 
+</picture>
+</p>
 
 ### Model deployment with Gradio and Hugging Face's spaces
 Explain gradio code in a few words, include some links
