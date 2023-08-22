@@ -25,7 +25,7 @@ tested_examples = [
     ["Finding Nemo", "6", True],
     ["How to Train Your Dragon", "6.7", True],
     ["Remember the Titans", "7.1", True],
-    ["Avengers: Endgame", "6.5", True],
+    ["Avengers: Endgame", "7.4", True],
 ]
 
 # ----------------------------------------------------------------------------------- #
