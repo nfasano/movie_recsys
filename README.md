@@ -100,27 +100,24 @@ Follow-up works to the LDA model, including by Blei himself, are available. In t
 
 #### Model evaluation
 - compare two models in a heuristic fashion and show the results
-<p align="center">
-<picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building_and_eval/remember_the_titans_top_topics.png" alt="drawing" width="800"/> 
-</picture>
-</p>
-
-<p align="center">
-<picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building_and_eval/schindlers_list_top_topics.png" alt="drawing" width="800"/> 
-</picture>
-</p>
-
-<p align="center">
-<picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building_and_eval/walle_top_topics.png" alt="drawing" width="800"/> 
-</picture>
-</p>
 
 <p align="center">
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building_and_eval/select_topics.png" alt="drawing" width="800"/> 
+</picture>
+</p>
+
+<p align="center">
+<picture>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building_and_eval/remember_the_titans_top_topics.png" alt="drawing" width="800"/> 
+</picture>
+
+<picture>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building_and_eval/schindlers_list_top_topics.png" alt="drawing" width="800"/> 
+</picture>
+
+<picture>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building_and_eval/walle_top_topics.png" alt="drawing" width="800"/> 
 </picture>
 </p>
 
