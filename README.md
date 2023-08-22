@@ -63,11 +63,12 @@ To make this data usable to train our machine learning models and be available a
 The next step was to find matching title IDs from the websracpped script dataset with he IMDb and tmdb datasets. A few different approaches were taken to systematically find these IDs, such as matching movie titles and movie year between the script dataset and IMDb/tmdb datasets. Additionally, the tmdb.org website provides a convenient API that can be queried for all data using either tmdb ID, IMDb ID, or movie title and year, which allows for finding all relevant movie data when given any one of these three. This API was particularly helpful when the tmdb ID was known but the IMDb ID was missing or when the movie title in the script dataset matched the one in the tmdb dataset but not the IMDb dataset (some movies titles, especially foreign films, can change over time).
 
 #### Database updating
+(see recsys_content_based/data_updating.ipynb notebook for implementation)
 After synthesizing and cleaning the datasets in the data wrangling phase, there still existed some missing data or errors that were discovered during the machine learning loop or after deployment. To fix these errors in an organized manner, I wrote a notebook (data_updating.ipynb) that allows one to easily update the cleaned database on a per-entry basis similar to how SQLs UPDATE method works. 
   
 ### Machine Learning Loop
 #### Data preprocessing
-To process the script data for the LDA model, the following Natural Language Processing tasks were performed:
+To process the script data for the LDA model, the following Natural Language Processing tasks were performed (see recsys_content_based/data_preprocessing_eda.ipynb notebook for implementation):
 - stop word removal from NLTK list of stop words
 - word mapping for words with the same meaning but different spellings (e.g. okay -> ok)
 - lemmatization
@@ -75,12 +76,15 @@ To process the script data for the LDA model, the following Natural Language Pro
 - removed punctuation from entire corpus
 - bag of words representation (create vector X of size num_movies by num_words)
 
-
+<!---
 <p align="center">
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/data_preprocessing_eda_out/num_movies_vs_year.png" alt="drawing" width="800"/> 
 </picture>
 </p>
+--->
+
+The following figure shows the top 60 words and their word count across the entire corpus after the removal of stop words and words present in greater than 90% of the documents. For this figure, lemmatization was turned off during preprocessing which is why the words "friend" and "friends" appear. Here we see the diversity of words present in the corpus where the topic of family seems especially prevalent (e.g. words like mom, mother, baby, son, wife, father, brother).
 
 <p align="center">
 <picture>
@@ -89,17 +93,16 @@ To process the script data for the LDA model, the following Natural Language Pro
 </p>
 
 #### Model building
-- insert LDA topics plot and some topic distributions for certain movies
+The model used to find movies with similar content was Latent Dirichlet Allocation (LDA), which is a three-level hierarchical Bayesian model widely used for uncovering latent topics within large corpus [cite: Blei, et al. Jorunal of Machine Learning Research 2003]. In the context of this project, LDA is a generative probabilistic model that represents movie scripts (the documents) as a mixture of latent topics and represents each topic by a distribution of words. 
 
-Some drawbacks to the LDA model:
-- the number of topics is fixed and known apriori
-- the topics are static and do not capture any time evolution
-- can produce topics with words that are uncorrelated, especially in noisy datasets
+Importantly, LDA allows for documents to be represented by many different topics at the same time. Ideally, this will allow the model to distinguish between movies that have the same dominant topic but very different sub-topics. As an example, consider the movies 'Space Jam' and 'Remember the Titans.' Both films are predominantly about sports, but 'Space Jam' is also a comedy film geared toward younger audiences, and 'Remember the Titans' is also a biographical film about the end of segregation in American schools. (Note that LDA makes no guarantees about what the latent topics will represent or whether or not they will be interpretable as Genres. Nonetheless, I do find that the discovered topics are generally interpretable)
 
-Follow-up works to the LDA model, including by Blei himself, are available. In the next section we discuss one of these model variants (dynamic LDA) that may be particularly useful for this dataset and motivates future work.
+There are some drawbacks to the LDA model listed below. Follow-up works to the LDA model, including by Blei himself, are available. In the next section we discuss one of these model variants (dynamic LDA) that may be particularly useful for this dataset and motivates future work.
 
-#### Model evaluation
-- compare two models in a heuristic fashion and show the results
+Drawbacks to the LDA model:
+1. the number of topics is fixed and known apriori
+2. the topics are static and do not capture any time evolution
+3. can produce topics with words that are uncorrelated, especially in noisy datasets
 
 <p align="center">
 <picture>
@@ -120,6 +123,11 @@ Follow-up works to the LDA model, including by Blei himself, are available. In t
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building_and_eval/walle_top_topics.png" alt="drawing" width="800"/> 
 </picture>
 </p>
+
+#### Model evaluation
+- compare two models in a heuristic fashion and show the results
+
+
 
 ### Model deployment with Gradio and Hugging Face's spaces
 Explain gradio code in a few words, include some links
