@@ -104,6 +104,10 @@ Drawbacks to the LDA model:
 2. the topics are static and do not capture any time evolution
 3. can produce topics with words that are uncorrelated, especially in noisy datasets
 
+To determine the number of topics, n_components in the code base, we train a range of LDA models with different numbers of topics and evaluate the perplexity on a held-out test set of data. The perplexity is defined as exp(-1*log-likelihood per word) so the lower the perplexity, the better the model. The following figure shows the result of this hyperparameter scan, indicating that the reduction in perplexity with increasing number of topics plateaus at ~20 topics.
+
+The following figure shows the top words represented in the first 5 topics of the 20-topic model. Most of these topics are readily interpretable as mentioned previously. Loosely speaking topic 1 represents war-type movies, topic 2 represents Christmas/holiday movies, topic 4 represents crime-type movies, and topic 5 represents sport type movies. Topic 3 is a bit harder to label, but seems to represent a class of people, particularly when addressed formerly with words such as mr, mrs, dear, darling. Each topic, however, does have some words that seem missplaced, such as harassment in topic 2 and the words nick, gwen, gandhi, jasper, and phil in topic 5.
+
 <p align="center">
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building_and_eval/select_topics.png" alt="drawing" width="800"/> 
