@@ -145,7 +145,9 @@ The following figure shows the output recommendations for these test examples. A
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/littlegiants_recommendations.png" alt="drawing" width="750"/> 
 </picture>
+</p>
 
+<p align="center">
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/rememberthetitans_recommendations.png" alt="drawing" width="750"/> 
 </picture>
@@ -170,7 +172,9 @@ From the Ranking of recommendations section above, we see that the model does a 
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/thehelp_recommendations.png" alt="drawing" width="750"/> 
 </picture>
+</p>
 
+<p align="center">
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/greenbook_recommendations.png" alt="drawing" width="750"/> 
 </picture>
