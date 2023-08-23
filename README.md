@@ -1,5 +1,28 @@
 # Content-based movie recommendation system
 
+Welcome to this GitHub repository explaining my journey into building a movie recommender system. 
+
+The rest of this ReadMe.md details the full life-cycle of the recommender system, including the data engineering and machine learning pipelines, as well as building the web-based app. 
+
+____________________________________________________________________________________________
+
+### Jump to section
+* [Technical Skills](#technical-skills)      
+* [Dissertation Research Projects](#dissertation-research-projects)   
+* [Data Science Projects](#data-science-projects) 
+    * [Sentiment classifier on black lives matter tweets](#1-sentiment-classifier-on-black-lives-matter-tweets-github-repo) 
+    * [Content-based movie recommendation system](#2-content-based-movie-recommendation-system-github-repo)
+    * [Colosseum ticket tracker and alert system](#3-colosseum-ticket-tracker-and-alert-system-github-repo)  
+* [Other Coding Projects](#other-coding-projects) 
+    * [Shopping list in Google sheets](#1-shopping-list-in-google-sheets-try-it-here) 
+    * [Bash script for executing code through the Slurm scheduler](#2-bash-script-for-executing-code-through-the-slurm-scheduler-github-repo) 
+* [Relevant Course Work](#relevant-course-work) 
+* [More About Me (Fun/Miscellaneous)](#more-about-me-funmiscellaneous) 
+
+
+Get your recommended movies now by following [this link](https://nmfasano5-content-based-movie-recommendation-system.hf.space). 
+
+
 ## Introduction: motivation, dataset and model overview, and the deployed recommender 
 The goal of this project was to build a movie recommender that suggests new movies to watch that are similar in content to an input movie. It helps users find potentially unknown movies that have similar topics to their favorite movies. To accomplish this, I set out to  Latent Dirichlet allocations (LDA) was used to find the latent topics of the entire corpus and cosine-similarity was used to find pairs of movies with similar latent topics. The film script dataset was webscraped from various sites and combined with additional metadata from publically available datasets (IMDb.com, tmdb.org, and MovieLens.com). 
 
