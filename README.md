@@ -154,7 +154,9 @@ The code contains the following features:
 ### Model feedback -- future work
 After deploying the model and experimenting with several use cases, I learned several strengths and weaknesses of the current recommendation system implementation, which motivates future work. 
 
-From the Ranking of recommendations section above, we see that the model does a great job of finding movies with similar themes and sub-themes. One drawback of the model becomes apparent when we ask for recommendations about movies that take place i
+From the Ranking of recommendations section above, we see that the model does a great job of finding movies with similar themes and sub-themes. One drawback of the model becomes apparent when we ask for recommendations about movies that take place in the past but written/produced with modern technology. Take for example the following two recommendation lists for the movies "Green Book" and "The Help". For both movies, the recommender has done a reasonable job finding movies with similar content, but I am not sure that these movies are the most relevant recommendations to be made since all of the recommended movies were written and filmed prior to 1991 (for "The Help") and prior to 1980 (for "Green Book"). 
+
+One way to circumvent this problem would be to adjust the ranking algorithm by, for example, enforcing the criteria that 60% of recommendations must be of movies released in the last 10 years. Another approach would be to adjust the model itself. One extension to the LDA model, known as Dynamic LDA, attempts to model the evolution of topics over time to account for the way in which the usage of certain words has evolved [see Blei, et al. ICML'06. (2006)]. A final way to improve the recommendations would be to tune the model parameters not for perplexity, but rather for some other downstream task, such as click-through rate.
 
 
 
