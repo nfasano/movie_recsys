@@ -14,6 +14,14 @@ df["imdb_link"] = df["imdb_link"].fillna("NULL")
 with open("Xtran.txt", "rb") as f:
     Xtran = pickle.load(f)
 
+# construct cleaned list of movie names
+movie_list = df["movie_title"].tolist()
+movie_list_clean = [j.lower() for j in movie_list]
+movie_list_clean = [
+    re.sub(" +", " ", j.replace(":", " ").replace("'", "").replace(".", ""))
+    for j in movie_list_clean
+]
+
 # ----------------------------------------------------------------------------------- #
 # ----------------------- variables used in functions ------------------------------- #
 # ----------------------------------------------------------------------------------- #
@@ -81,14 +89,6 @@ def update_radio(text):
         # find top three matches
         # Note: here we prefer hits where movie name starts with text
 
-        # construct cleaned list of movie names
-        movie_list = df["movie_title"].tolist()
-        movie_list_clean = [j.lower() for j in movie_list]
-        movie_list_clean = [
-            re.sub(" +", " ", j.replace(":", " ").replace("'", "").replace(".", ""))
-            for j in movie_list_clean
-        ]
-
         # find movie names that begin with text (order these at the top)
         top_hits_begin = [
             movie_list[j]
@@ -102,12 +102,14 @@ def update_radio(text):
         ]
 
         # combine the two lists of movie names without duplication
-        top_hits = top_hits_begin + [j for j in top_hits_in if j not in top_hits_begin]
+        top_hits = sorted(top_hits_begin, key=len) + [
+            j for j in top_hits_in if j not in top_hits_begin
+        ]
 
         if len(top_hits) < 1:
             return radio.update(choices=[], visible=True, label="No movies found")
         else:
-            top_hits = sorted(top_hits[:25])
+            # top_hits = top_hits[:25]
             return radio.update(
                 choices=top_hits[:3], visible=True, label="Select your movie:"
             )

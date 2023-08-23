@@ -5,3 +5,4 @@ database_movieLens/
 database_the_numbers/
 eda_actor_network_graph/*.csv
 recsys_content_based/data_cleaning_and_synthesis_out/*.csv
+recsys_content_based/model_building/hyperparameter_tuning/*.sav
