@@ -107,6 +107,13 @@ Drawbacks to the LDA model:
 
 To determine the number of topics, n_components in the code base, we train a range of LDA models with different numbers of topics and evaluate the perplexity on a held-out test set of data. The perplexity is defined as exp(-1*log-likelihood per word) so the lower the perplexity, the better the model. The following figure shows the result of this hyperparameter scan, indicating that the reduction in perplexity with an increasing number of topics plateaus at ~20 topics.
 
+<p align="center">
+<picture>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building/ncomp_tuning2.png
+" alt="drawing" width="700"/> 
+</picture>
+</p>
+
 #### Model evaluation
 
 #### High-level features of the model
