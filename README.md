@@ -4,6 +4,7 @@ Welcome to this GitHub repository explaining my journey into building a movie re
 
 The rest of this ReadMe.md details the full life-cycle of the recommender system, including the data engineering and machine learning pipelines, as well as building the web-based app. 
 
+Just came here for the awesome recommendations - follow [this link](https://nmfasano5-content-based-movie-recommendation-system.hf.space)
 ____________________________________________________________________________________________
 
 ### Jump to section
@@ -18,9 +19,6 @@ ________________________________________________________________________________
     * [Bash script for executing code through the Slurm scheduler](#2-bash-script-for-executing-code-through-the-slurm-scheduler-github-repo) 
 * [Relevant Course Work](#relevant-course-work) 
 * [More About Me (Fun/Miscellaneous)](#more-about-me-funmiscellaneous) 
-
-
-Get your recommended movies now by following [this link](https://nmfasano5-content-based-movie-recommendation-system.hf.space). 
 
 
 ## Introduction: motivation, dataset and model overview, and the deployed recommender 
