@@ -147,11 +147,15 @@ The following figure shows the output recommendations for these test examples. A
 </picture>
 </p>
 
+*Figure : Screenshots of the recommendations for movies based on the film "Little Giants" obtained from the deployed movie recommendation system app.* 
+
 <p align="center">
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/rememberthetitans_recommendations.png" alt="drawing" width="750"/> 
 </picture>
 </p>
+
+*Figure : Screenshots of the recommendations for movies based on the film "Remember the Titans" obtained from the deployed movie recommendation system app.* 
 
 ### Model deployment with Gradio and Hugging Face's spaces
 To deploy the developed model, we built a web-based app using [gradio](https://www.gradio.app/) and then hosted the app on [Hugging Face Spaces](https://huggingface.co/spaces), which allows the application to be available permanently and for free.
@@ -174,11 +178,15 @@ From the Ranking of recommendations section above, we see that the model does a 
 </picture>
 </p>
 
+*Figure : Screenshots of the recommendations for movies based on the film "The Help" obtained from the deployed movie recommendation system app.* 
+
 <p align="center">
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/greenbook_recommendations.png" alt="drawing" width="750"/> 
 </picture>
 </p>
+
+*Figure : Screenshots of the recommendations for movies based on the film "Green Book" obtained from the deployed movie recommendation system app.* 
 
 One way to circumvent this problem would be to adjust the ranking algorithm by, for example, enforcing the criteria that 60% of recommendations must be of movies released in the last 10 years. Another approach would be to adjust the model itself. One extension to the LDA model, known as Dynamic LDA, attempts to model the evolution of topics over time to account for the way in which the usage of certain words has evolved [see Blei, et al. ICML'06. (2006)]. A final way to improve the recommendations would be to tune the model parameters not for perplexity, but rather for some other downstream task, such as click-through rate.
 
