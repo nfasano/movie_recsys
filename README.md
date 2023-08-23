@@ -109,8 +109,7 @@ To determine the number of topics, n_components in the code base, we train a ran
 
 <p align="center">
 <picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building/ncomp_tuning2.png
-" alt="drawing" width="700"/> 
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building/ncomp_tuning2.png" alt="drawing" width="700"/> 
 </picture>
 </p>
 
