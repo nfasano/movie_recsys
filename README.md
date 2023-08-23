@@ -2,26 +2,27 @@
 
 Welcome to this GitHub repository explaining my journey into building a movie recommender system. 
 
-The rest of this ReadMe.md details the full life-cycle of the recommender system, including the data engineering and machine learning pipelines, as well as building the web-based app. 
+The rest of this ReadMe.md details the full life-cycle of the recommender system, including the data engineering and machine learning pipelines. All the code for the recommender system is contained in the recsys_content_based folder of this repo.
 
-Just came here for the awesome recommendations - follow [this link](https://nmfasano5-content-based-movie-recommendation-system.hf.space)
+Just came here for the awesome recommendations - then click [this link](https://nmfasano5-content-based-movie-recommendation-system.hf.space)
 ____________________________________________________________________________________________
 
 ### Jump to section
-* [Technical Skills](#technical-skills)      
-* [Dissertation Research Projects](#dissertation-research-projects)   
-* [Data Science Projects](#data-science-projects) 
-    * [Sentiment classifier on black lives matter tweets](#1-sentiment-classifier-on-black-lives-matter-tweets-github-repo) 
-    * [Content-based movie recommendation system](#2-content-based-movie-recommendation-system-github-repo)
-    * [Colosseum ticket tracker and alert system](#3-colosseum-ticket-tracker-and-alert-system-github-repo)  
-* [Other Coding Projects](#other-coding-projects) 
-    * [Shopping list in Google sheets](#1-shopping-list-in-google-sheets-try-it-here) 
-    * [Bash script for executing code through the Slurm scheduler](#2-bash-script-for-executing-code-through-the-slurm-scheduler-github-repo) 
-* [Relevant Course Work](#relevant-course-work) 
-* [More About Me (Fun/Miscellaneous)](#more-about-me-funmiscellaneous) 
+* [Introduction: project motivation and scope](#introduction-project-motivation-and-scope)      
+* [Components of this recommender system](#components-of-this-recommender-system)   
+    * [Data engineering pipeline](#data-engineering-pipeline)
+       * [Curated datasets](#curated-datasets)
+       * [Data wrangling](#data-wrangling)
+       * [Database updating](#database-updating) 
+    * [Machine learning pipeline](#machine-learning-pipeline)
+       * [Data preprocessing](#data-preprocessing)
+       * [Model building](#model-building)
+       * [Model evaluation](#model-evaluation) 
+    * [Model deployment](#model-deployment)
+    * [Model feedback and future work](#model-feedback-and-future-work)
+    * [Resources](#resources)
 
-
-## Introduction: motivation, dataset and model overview, and the deployed recommender 
+## Introduction: project motivation and scope
 The goal of this project was to build a movie recommender that suggests new movies to watch that are similar in content to an input movie. It helps users find potentially unknown movies that have similar topics to their favorite movies. To accomplish this, I set out to  Latent Dirichlet allocations (LDA) was used to find the latent topics of the entire corpus and cosine-similarity was used to find pairs of movies with similar latent topics. The film script dataset was webscraped from various sites and combined with additional metadata from publically available datasets (IMDb.com, tmdb.org, and MovieLens.com). 
 
 The deployed recommender can be tested by following [this link](https://nmfasano5-content-based-movie-recommendation-system.hf.space). A screenshot showing some example recommendations based on the movie input "Remember the Titans" is shown in the following figure. The remainder of this README.md file details the workflow used to build the recommender system, including the data engineering and machine learning loops which allow for seamless improvements to any part of the system.
@@ -38,7 +39,7 @@ The deployed recommender can be tested by following [this link](https://nmfasano
 
 *Figure 1: Snapshot of the movie recommender web app deployed to Hugging Face's spaces. In this example, the user began searching for a movie and then selected "Remember the Titans" from the list of available movies. The user chooses various filters to be applied to the recommendations and clicks Recommend. At this point, 5 movie titles along with some metadata and IMDb.com links to the movies' title pages are shown.* 
 
-## The Life-Cycle of this Movie Recommender Project
+## Components of this recommender system
 The following figure shows the life-cycle of this movie recommendation project, highlighting the data engineering and machine learning loops used to continuously make improvements to the recommender system. 
 
 <p align="center">
@@ -54,9 +55,9 @@ The diagram begins with data engineering, where we collected disparate datasets 
 With a cleaned and synthesized dataset, the machine learning loop can begin. In this phase of the project, we first began by doing some exploratory data analysis to understand the richness of the dataset and then preprocessed the datasets (created a bag of words representation) into a form ready to be used for training of the model.
 
 
-### Data Engineering
+### Data engineering pipeline
 
-#### Curated datasets used in this project:
+#### Curated datasets:
 1) Movie and television scripts from IMSDb and Springfield! Springfield!
     - Source: https://imsdb.com/ and https://www.springfieldspringfield.co.uk/
     - Content: film title, year, film script for 35,000+ movies and 130,000+ tv epsiodes 
@@ -88,7 +89,8 @@ The next step was to find matching title IDs from the websracpped script dataset
 (see recsys_content_based/data_updating.ipynb notebook for implementation)
 After synthesizing and cleaning the datasets in the data wrangling phase, there still existed some missing data or errors that were discovered during the machine learning loop or after deployment. To fix these errors in an organized manner, I wrote a notebook (data_updating.ipynb) that allows one to easily update the cleaned database on a per-entry basis similar to how SQLs UPDATE method works. 
   
-### Machine Learning Loop
+### Machine learning pipeline
+
 #### Data preprocessing
 To process the script data for the LDA model, the following Natural Language Processing tasks were performed (see recsys_content_based/data_preprocessing_eda.ipynb notebook for implementation):
 - stop word removal from NLTK list of stop words
@@ -217,6 +219,19 @@ From the Ranking of recommendations section above, we see that the model does a 
 
 One way to circumvent this problem would be to adjust the ranking algorithm by, for example, enforcing the criteria that 60% of recommendations must be of movies released in the last 10 years. Another approach would be to adjust the model itself. One extension to the LDA model, known as Dynamic LDA, attempts to model the evolution of topics over time to account for the way in which the usage of certain words has evolved [see Blei, et al. ICML'06. (2006)]. A final way to improve the recommendations would be to tune the model parameters not for perplexity, but rather for some other downstream task, such as click-through rate.
 
+### Resources
+[Microsoft Recommenders](https://github.com/recommenders-team/recommenders) - well-maintained GitHub repository detailing the best practices for building and deploying recommender systems.
+[Nvida](https://docs.nvidia.com/deeplearning/performance/recsys-best-practices/index.html) - Document discussing best practices for building recommender systems
+[Original LDA paper by Blei et al.]()
+[Dynamic LDA paper by Blei et al.]()
+[Example of collaborative Topic model used at NYT](https://archive.nytimes.com/open.blogs.nytimes.com/2015/08/11/building-the-next-new-york-times-recommendation-engine/?mcubz=0&_r=0) - Discusses the NYTs experimentation with collaborative topic models (LDA is used for topic model) in production.
+
+Datasets:
+[IMDb.com](https://www.imdb.com/interfaces/)
+[themoviedb.org](https://www.themoviedb.org/?language=en-US)
+[MovieLens.com](https://movielens.org/home)
+[IMSDb.com](https://imsdb.com/)
+[Springfield! Springfield!](https://www.springfieldspringfield.co.uk/)
 
 
 
