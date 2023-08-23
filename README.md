@@ -39,20 +39,21 @@ With a cleaned and synthesized dataset, the machine learning loop can begin. In 
 1) Movie and television scripts from IMSDb and Springfield! Springfield!
     - Source: https://imsdb.com/ and https://www.springfieldspringfield.co.uk/
     - Content: film title, year, film script for 35,000+ movies and 130,000+ tv epsiodes 
-    - Note: This dataset was webscraped. See [scrapers](https://github.com/nfasano/movie_recsys/tree/main/database_film_scripts) folder in this repo for the notebooks used to scrape the scripts and clean the datasets.
+    - Note: This dataset was webscraped. See [scrapers](https://github.com/nfasano/movie_recsys/tree/main/database_film_scripts) folder in this repo for the notebooks used to scrape the scripts.
 2) IMDb dataset
     - Source: [IMDb dataset](https://www.imdb.com/interfaces/)
     - Content: film title, average rating, genres, runtime, cast/crew 
     - Note: This dataset is freely available for noncommercial use.
 3) The Movie DataBase (TMBD)
     - Source: [themoviedb.org](https://www.themoviedb.org/?language=en-US)
-    - Note: This dataset is freely available for noncommercial use. It was primarily used for adding poster art to the recommender app.
+    - Note: This dataset is freely available for noncommercial use. It was primarily used for adding poster art to the recommender app and for matching ids between scripts dataset and imdb dataset.
 4) MovieLens Dataset
     - Source: [MovieLens.com](https://movielens.org/home)
     - Content: user_id, item_id, rating, timestamp for over 20 Million ratings provided by real users on the MovieLens website. Also provides the ids for IMDb and TMDB for all movies in their database, making it trivial to combine this dataset with IMDb and TMDB metadata.
     - Note: This dataset is freely available for noncommercial use.
 
 #### Data wrangling
+(see recsys_content_based/data_cleaning_and_synthesis.ipynb notebook for implementation)
 To make this data usable to train our machine learning models and be available as metadata for the recommender app, it is necessary to clean and synthesize the datasets into one database. To clean the webscraped data, we manually inspected the movie titles and year of release and fixed any inconsistencies or errors, and changed the movie title formatting to be the same as the IMDb and tmdb datasets. Some examples of this data cleaning are shown below:
 
 1) Fixed errors -- e.g. changed movie year from "0000" to "1999" or from "20147" to "2017"
@@ -104,37 +105,56 @@ Drawbacks to the LDA model:
 2. the topics are static and do not capture any time evolution
 3. can produce topics with words that are uncorrelated, especially in noisy datasets
 
-To determine the number of topics, n_components in the code base, we train a range of LDA models with different numbers of topics and evaluate the perplexity on a held-out test set of data. The perplexity is defined as exp(-1*log-likelihood per word) so the lower the perplexity, the better the model. The following figure shows the result of this hyperparameter scan, indicating that the reduction in perplexity with increasing number of topics plateaus at ~20 topics.
-
-The following figure shows the top words represented in the first 5 topics of the 20-topic model. Most of these topics are readily interpretable as mentioned previously. Loosely speaking topic 1 represents war-type movies, topic 2 represents Christmas/holiday movies, topic 4 represents crime-type movies, and topic 5 represents sport type movies. Topic 3 is a bit harder to label, but seems to represent a class of people, particularly when addressed formerly with words such as mr, mrs, dear, darling. Each topic, however, does have some words that seem missplaced, such as harassment in topic 2 and the words nick, gwen, gandhi, jasper, and phil in topic 5.
-
-<p align="center">
-<picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building_and_eval/select_topics.png" alt="drawing" width="800"/> 
-</picture>
-</p>
-
-<p align="center">
-<picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building_and_eval/remember_the_titans_top_topics.png" alt="drawing" width="800"/> 
-</picture>
-
-<picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building_and_eval/schindlers_list_top_topics.png" alt="drawing" width="800"/> 
-</picture>
-
-<picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building_and_eval/walle_top_topics.png" alt="drawing" width="800"/> 
-</picture>
-</p>
+To determine the number of topics, n_components in the code base, we train a range of LDA models with different numbers of topics and evaluate the perplexity on a held-out test set of data. The perplexity is defined as exp(-1*log-likelihood per word) so the lower the perplexity, the better the model. The following figure shows the result of this hyperparameter scan, indicating that the reduction in perplexity with an increasing number of topics plateaus at ~20 topics.
 
 #### Model evaluation
-- compare two models in a heuristic fashion and show the results
 
+#### High-level features of the model
+The following figure shows the top words represented in the first 5 topics of the 20-topic model. Most of these topics are readily interpretable as mentioned previously. Loosely speaking topic 1 represents war-type movies, topic 2 represents Christmas/holiday movies, topic 4 represents crime-type movies, and topic 5 represents sport type movies. Topic 3 is a bit harder to label, but seems to represent a class of people, particularly when addressed formerly with words such as mr, mrs, dear, darling. Each topic, however, does have some words that seem misplaced, such as harassment in topic 2 and the words nick, gwen, gandhi, jasper, and phil in topic 5.
 
+<p align="center">
+<picture>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/select_topics.png" alt="drawing" width="800"/> 
+</picture>
+</p>
+
+The next figure shows a movie's distribution over the 20 topics and the top 20 words present in the top two topics for that movie for three different movies: (a) WALL-E, (b) Schindler's List, and (c) Remember the Titans.
+
+<p align="center">
+<picture>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/walle_top_topics.png" alt="drawing" width="800"/> 
+</picture>
+    
+<picture>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/schindlers_list_top_topics.png" alt="drawing" width="800"/> 
+</picture>
+
+<picture>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/remember_the_titans_top_topics.png" alt="drawing" width="800"/> 
+</picture>
+</p>
+
+#### Ranking of recommendations by cosine-similarity and post-filtering options
+Now that we have learned the distribution of topics for each movie and the distribution of words within each topic, we can now compare the similarity between movies based on how similar their topic distributions are. To do that, we compute the cosine-similarity between an input movie's topic distribution with the topic distribution of all other movies in the database and the rank the values in descending order.  
+
+After the ranking by cosine-similarity is computed, the list of movies is filtered by removing all movies with an IMDb rating less than the rating_min input value (set rating_min to 0 for no filtering).
+
+The following figure shows the output recommendations for these test examples. As you can see, the model does an excellent job of finding movies with similar underlying content. For example, take a look at the recommendations provided for the movies "Remember the Titans" and "Little Giants". Both films are about football teams but with very different contexts: Remember the Titans is while Little Giants is a comedy film about pee-wee football teams. Notice how the recommendations captures these differences and recommends serious sports films for Remember the Titans and other family/comedy sports movies for Little Giants. Note that the model does not see the genre of the movie - only the script text.
 
 ### Model deployment with Gradio and Hugging Face's spaces
-Explain gradio code in a few words, include some links
+To deploy the developed model, we built a web-based app using [gradio](https://www.gradio.app/) and then hosted the app on [Hugging Face Spaces](https://huggingface.co/spaces), which allows the application to be available permanently and for free.
+
+The code contains the following features:
+
+1. The gradio code used to create the app. I chose to utilize gradio's low-level API ([Blocks](https://www.gradio.app/guides/quickstart#blocks-more-flexibility-and-control)) for building the app, since it allows for more flexible layouts and data flows). 
+2. A movie recommendation function (def movie_rec) that takes in a movie, some filters, and then returns the most similar movies (plus that movies metadata) from the cosine-similarity matrix after filtering out low-ranking and Adult films. 
+3. A Query parser (def update_radio(text)) which takes in the text from the search box and returns the most relevant movies from the dataset. The parser is case-insensitive and robust to punctuation and extraneous spaces, but it will not handle spelling mistakes. 
+
+
+### Model feedback -- future work
+After deploying the model and experimenting with several use cases, I learned several strengths and weaknesses of the current recommendation system implementation, which motivates future work. 
+
+From the Ranking of recommendations section above, we see that the model does a great job of finding movies with similar themes and sub-themes. One drawback of the model becomes apparent when we ask for recommendations about movies that take place i
 
 
 
