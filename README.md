@@ -186,7 +186,7 @@ The following figure shows the output recommendations for these test examples. A
 
 *Figure : Screenshots of the recommendations for movies based on the film "Remember the Titans" obtained from the deployed movie recommendation system app.* 
 
-### Model deployment with Gradio and Hugging Face's spaces
+### Model deployment
 To deploy the developed model, we built a web-based app using [gradio](https://www.gradio.app/) and then hosted the app on [Hugging Face Spaces](https://huggingface.co/spaces), which allows the application to be available permanently and for free.
 
 The code contains the following features:
@@ -196,7 +196,7 @@ The code contains the following features:
 3. A Query parser (def update_radio(text)) which takes in the text from the search box and returns the most relevant movies from the dataset. The parser is case-insensitive and robust to punctuation and extraneous spaces, but it will not handle spelling mistakes. 
 
 
-### Model feedback -- future work
+### Model feedback and future work
 After deploying the model and experimenting with several use cases, I learned several strengths and weaknesses of the current recommendation system implementation, which motivates future work. 
 
 From the Ranking of recommendations section above, we see that the model does a great job of finding movies with similar themes and sub-themes. One drawback of the model becomes apparent when we ask for recommendations about movies that take place in the past but written/produced with modern technology. Take for example the following two recommendation lists for the movies "Green Book" and "The Help". For both movies, the recommender has done a reasonable job finding movies with similar content, but I am not sure that these movies are the most relevant recommendations to be made since all of the recommended movies were written and filmed prior to 1991 (for "The Help") and prior to 1980 (for "Green Book"). 
