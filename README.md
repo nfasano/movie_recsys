@@ -22,7 +22,7 @@ ________________________________________________________________________________
     * [Model feedback and future work](#model-feedback-and-future-work)
     * [Resources](#resources)
  
-  ____________________________________________________________________________________________
+____________________________________________________________________________________________
 
 ## Introduction: project motivation and scope
 The goal of this project was to build a movie recommender that suggests new movies to watch that are similar in content to an input movie. It helps users find unknown movies that have similar topics to their favorite movies. Latent Dirichlet allocations (LDA) was used to find the latent topics of the entire corpus and cosine-similarity was used to find pairs of movies with similar latent topics. The film script dataset was webscraped from various sites and combined with additional metadata from publically available datasets (IMDb.com, tmdb.org, and MovieLens.com). 
