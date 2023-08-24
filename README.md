@@ -117,7 +117,7 @@ The following figure shows the top 60 words and their word count across the enti
 </p>
 
 #### Model building
-The model used to find movies with similar content was Latent Dirichlet Allocation (LDA), which is a three-level hierarchical Bayesian model widely used for uncovering latent topics within large corpus [cite: Blei, et al. Jorunal of Machine Learning Research 2003]. In the context of this project, LDA is a generative probabilistic model that represents movie scripts (the documents) as a mixture of latent topics and represents each topic by a distribution of words. 
+The model used to find movies with similar content was Latent Dirichlet Allocation (LDA), which is a three-level hierarchical Bayesian model widely used for uncovering latent topics within large corpus [cite: Blei, et al. JMLR 2003](https://jmlr.csail.mit.edu/papers/v3/blei03a.html). In the context of this project, LDA is a generative probabilistic model that represents movie scripts (the documents) as a mixture of latent topics and represents each topic by a distribution of words. 
 
 Importantly, LDA allows for documents to be represented by many different topics at the same time. Ideally, this will allow the model to distinguish between movies that have the same dominant topic but very different sub-topics. As an example, consider the movies 'Space Jam' and 'Remember the Titans.' Both films are predominantly about sports, but 'Space Jam' is also a comedy film geared toward younger audiences, and 'Remember the Titans' is also a biographical film about the end of segregation in American schools. (Note that LDA makes no guarantees about what the latent topics will represent or whether or not they will be interpretable as Genres. Nonetheless, I do find that the discovered topics are generally interpretable)
 
@@ -217,13 +217,13 @@ From the Ranking of recommendations section above, we see that the model does a 
 
 *Figure : Screenshots of the recommendations for movies based on the film "Green Book" obtained from the deployed movie recommendation system app.* 
 
-One way to circumvent this problem would be to adjust the ranking algorithm by, for example, enforcing the criteria that 60% of recommendations must be of movies released in the last 10 years. Another approach would be to adjust the model itself. One extension to the LDA model, known as Dynamic LDA, attempts to model the evolution of topics over time to account for the way in which the usage of certain words has evolved [see Blei, et al. ICML'06. (2006)]. A final way to improve the recommendations would be to tune the model parameters not for perplexity, but rather for some other downstream task, such as click-through rate.
+One way to circumvent this problem would be to adjust the ranking algorithm by, for example, enforcing the criteria that 60% of recommendations must be of movies released in the last 10 years. Another approach would be to adjust the model itself. One extension to the LDA model, known as Dynamic LDA, attempts to model the evolution of topics over time to account for the way in which the usage of certain words has evolved [see Blei, et al. ICML'06. (2006)](https://dl.acm.org/doi/abs/10.1145/1143844.1143859). A final way to improve the recommendations would be to tune the model parameters not for perplexity, but rather for some other downstream task, such as click-through rate.
 
 ### Resources
 [Microsoft Recommenders](https://github.com/recommenders-team/recommenders) - well-maintained GitHub repository detailing the best practices for building and deploying recommender systems.
 [Nvida](https://docs.nvidia.com/deeplearning/performance/recsys-best-practices/index.html) - Document discussing best practices for building recommender systems
-[Original LDA paper by Blei et al.]()
-[Dynamic LDA paper by Blei et al.]()
+[Original LDA paper by Blei et al. JMLR 2003](https://jmlr.csail.mit.edu/papers/v3/blei03a.html)
+[Dynamic LDA paper by Blei et al. ICML '06](https://dl.acm.org/doi/abs/10.1145/1143844.1143859)
 [Example of collaborative Topic model used at NYT](https://archive.nytimes.com/open.blogs.nytimes.com/2015/08/11/building-the-next-new-york-times-recommendation-engine/?mcubz=0&_r=0) - Discusses the NYTs experimentation with collaborative topic models (LDA is used for topic model) in production.
 
 Datasets:
