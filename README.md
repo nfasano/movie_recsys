@@ -21,6 +21,8 @@ ________________________________________________________________________________
     * [Model deployment](#model-deployment)
     * [Model feedback and future work](#model-feedback-and-future-work)
     * [Resources](#resources)
+ 
+  ____________________________________________________________________________________________
 
 ## Introduction: project motivation and scope
 The goal of this project was to build a movie recommender that suggests new movies to watch that are similar in content to an input movie. It helps users find unknown movies that have similar topics to their favorite movies. Latent Dirichlet allocations (LDA) was used to find the latent topics of the entire corpus and cosine-similarity was used to find pairs of movies with similar latent topics. The film script dataset was webscraped from various sites and combined with additional metadata from publically available datasets (IMDb.com, tmdb.org, and MovieLens.com). 
@@ -39,6 +41,8 @@ The deployed recommender can be tested by following [this link](https://nmfasano
 
 *Figure 1: Snapshot of the movie recommender web app deployed to Hugging Face's spaces. In this example, the user began searching for a movie and then selected "Remember the Titans" from the list of available movies. The user chooses various filters to be applied to the recommendations and clicks Recommend. At this point, 5 movie titles along with some metadata and IMDb.com links to the movies' title pages are shown.* 
 
+____________________________________________________________________________________________
+
 ## Components of this recommender system
 The following figure shows the life-cycle of this movie recommendation project, highlighting the data engineering and machine learning loops used to continuously make improvements to the recommender system. 
 
@@ -54,6 +58,7 @@ The diagram begins with data engineering, where we first collected disparate dat
 
 The specifics of each phase are discussed in more detail in the following sections. The corresponding notebook or Python file is also highlighted if the reader is interested in looking into the source code, most of which is well documented. 
 
+____________________________________________________________________________________________
 
 ### Data engineering pipeline
 
@@ -91,15 +96,18 @@ The next step was to find matching title IDs from the websracpped script dataset
 </picture>
 </p>
 
-*Figure : Number of movies per year in present in the script dataset.* 
+*Figure 3: Number of movies per year in present in the script dataset.* 
 
 #### Database updating
-(see [data_preprocessing_eda.ipynb](https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/data_preprocessing_eda.ipynb)notebook for implementation)
+(see [data_updating.ipynb](https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/data_updating.ipynb) notebook for implementation)
 After synthesizing and cleaning the datasets in the data wrangling phase, there still existed some missing data or errors that were discovered during the machine learning loop or after deployment. To fix these errors in an organized manner, I wrote a notebook (data_updating.ipynb) that allows one to easily update the cleaned database on a per-entry basis similar to how SQLs UPDATE method works. 
-  
+
+____________________________________________________________________________________________
+
 ### Machine learning pipeline
 
 #### Data preprocessing
+(see [data_preprocessing_eda.ipynb](https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/data_preprocessing_eda.ipynb) notebook for implementation)
 To process the script data for the LDA model, the following Natural Language Processing tasks were performed (see recsys_content_based/data_preprocessing_eda.ipynb notebook for implementation):
 - stop word removal from NLTK list of stop words
 - word mapping for words with the same meaning but different spellings (e.g. okay -> ok)
@@ -116,9 +124,11 @@ The following figure shows the top 60 words and their word count across the enti
 </picture>
 </p>
 
-*Figure : Top 60 words contained in the entire corpus after removing stop words and words present in greater than 90% of the documents.* 
+*Figure 4: Top 60 words contained in the entire corpus after removing stop words and words present in greater than 90% of the documents.* 
 
 #### Model building
+(see [model_building.ipynb](https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building.ipynb) notebook for implementation)
+
 The model used to find movies with similar content was Latent Dirichlet Allocation (LDA), which is a three-level hierarchical Bayesian model widely used for uncovering latent topics within large corpus [cite: Blei, et al. JMLR 2003](https://jmlr.csail.mit.edu/papers/v3/blei03a.html). In the context of this project, LDA is a generative probabilistic model that represents movie scripts (the documents) as a mixture of latent topics and represents each topic by a distribution of words. 
 
 Importantly, LDA allows for documents to be represented by many different topics at the same time. Ideally, this will allow the model to distinguish between movies that have the same dominant topic but very different sub-topics. As an example, consider the movies 'Space Jam' and 'Remember the Titans.' Both films are predominantly about sports, but 'Space Jam' is also a comedy film geared toward younger audiences, and 'Remember the Titans' is also a biographical film about the end of segregation in American schools. (Note that LDA makes no guarantees about what the latent topics will represent or whether or not they will be interpretable as Genres. Nonetheless, I do find that the discovered topics are generally interpretable)
@@ -138,11 +148,10 @@ To determine the number of topics, n_components in the code base, we run 5-fold 
 </picture>
 </p>
 
-*Figure : Average perplexity evaluated on the training dataset (blue) and testing dataset (red) as a function of the number of components used to train the model. The average and standard deviation are computed after performing a 5-fold cross-validation.* 
+*Figure 5: Average perplexity evaluated on the training dataset (blue) and testing dataset (red) as a function of the number of components used to train the model. The average and standard deviation are computed after performing a 5-fold cross-validation.* 
 
 #### Model evaluation
-
-#### High-level features of the model
+(see [model_eval.ipynb](https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval.ipynb) notebook for implementation)
 The following figure shows the top words represented in the first 5 topics of the 20-topic model. Most of these topics are readily interpretable as mentioned previously. Loosely speaking topic 1 represents war-type movies, topic 2 represents Christmas/holiday movies, topic 4 represents crime-type movies, and topic 5 represents sport type movies. Topic 3 is a bit harder to label, but seems to represent a class of people, particularly when addressed formerly with words such as mr, mrs, dear, darling. Each topic, however, does have some words that seem misplaced, such as harassment in topic 2 and the words nick, gwen, gandhi, jasper, and phil in topic 5.
 
 <p align="center">
@@ -151,7 +160,7 @@ The following figure shows the top words represented in the first 5 topics of th
 </picture>
 </p>
 
-The next figure shows a movie's distribution over the 20 topics and the top 20 words present in the top two topics for that movie for three different movies: (a) WALL-E, (b) Schindler's List, and (c) Remember the Titans.
+The next figure shows a movie's distribution over the 20 topics and the top 20 words present in the two highest weighted topics for that movie for three different movies: (a) WALL-E, (b) Schindler's List, and (c) Remember the Titans.
 
 <p align="center">
 <picture>
@@ -167,6 +176,8 @@ The next figure shows a movie's distribution over the 20 topics and the top 20 w
 </picture>
 </p>
 
+*Figure 7: Three examples of a movie's distribution over the 20 topics and the top 20 words present in the two highest weighted topics for that movie. (a) WALL-E, (b) Schindler's List, and (c) Remember the Titans.* 
+
 #### Ranking of recommendations by cosine-similarity and post-filtering options
 Now that we have learned the distribution of topics for each movie and the distribution of words within each topic, we can now compare the similarity between movies based on how similar their topic distributions are. To do that, we compute the cosine-similarity between an input movie's topic distribution with the topic distribution of all other movies in the database and the rank the values in descending order.  
 
@@ -180,7 +191,7 @@ The following figure shows the output recommendations for these test examples. A
 </picture>
 </p>
 
-*Figure : Screenshots of the recommendations for movies based on the film "Little Giants" obtained from the deployed movie recommendation system app.* 
+*Figure 8: Screenshots of the recommendations for movies based on the film "Little Giants" obtained from the deployed movie recommendation system app.* 
 
 <p align="center">
 <picture>
@@ -188,9 +199,12 @@ The following figure shows the output recommendations for these test examples. A
 </picture>
 </p>
 
-*Figure : Screenshots of the recommendations for movies based on the film "Remember the Titans" obtained from the deployed movie recommendation system app.* 
+*Figure 9: Screenshots of the recommendations for movies based on the film "Remember the Titans" obtained from the deployed movie recommendation system app.* 
+
+____________________________________________________________________________________________
 
 ### Model deployment
+(see [gradio_app.ipynb](https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/gradio_app.ipynb) notebook for implementation)
 To deploy the developed model, we built a web-based app using [gradio](https://www.gradio.app/) and then hosted the app on [Hugging Face Spaces](https://huggingface.co/spaces), which allows the application to be available permanently and for free.
 
 The code contains the following features:
@@ -199,11 +213,12 @@ The code contains the following features:
 2. A movie recommendation function (def movie_rec) that takes in a movie, some filters, and then returns the most similar movies (plus that movies metadata) from the cosine-similarity matrix after filtering out low-ranking and Adult films. 
 3. A Query parser (def update_radio(text)) which takes in the text from the search box and returns the most relevant movies from the dataset. The parser is case-insensitive and robust to punctuation and extraneous spaces, but it will not handle spelling mistakes. 
 
+____________________________________________________________________________________________
 
 ### Model feedback and future work
 After deploying the model and experimenting with several use cases, I learned several strengths and weaknesses of the current recommendation system implementation, which motivates future work. 
 
-From the Ranking of recommendations section above, we see that the model does a great job of finding movies with similar themes and sub-themes. One drawback of the model becomes apparent when we ask for recommendations about movies that take place in the past but written/produced with modern technology. Take for example the following two recommendation lists for the movies "Green Book" and "The Help". For both movies, the recommender has done a reasonable job finding movies with similar content, but I am not sure that these movies are the most relevant recommendations to be made since all of the recommended movies were written and filmed prior to 1991 (for "The Help") and prior to 1980 (for "Green Book"). 
+From the Ranking of recommendations section above, we see that the model does a great job of finding movies with similar themes and sub-themes. One drawback of the model becomes apparent when we ask for recommendations about movies that take place in the past century but are filmed in the current century. Take for example the following two recommendation lists for the movies "Green Book" and "The Help". For both movies, the recommender has done a reasonable job finding movies with similar content, but I am not sure that these movies are the most relevant recommendations to be made since all of the recommended movies were written and filmed prior to 1991 (for "The Help") and prior to 1980 (for "Green Book"). 
 
 <p align="center">
 <picture>
@@ -211,7 +226,7 @@ From the Ranking of recommendations section above, we see that the model does a 
 </picture>
 </p>
 
-*Figure : Screenshots of the recommendations for movies based on the film "The Help" obtained from the deployed movie recommendation system app.* 
+*Figure 10: Screenshots of the recommendations for movies based on the film "The Help" obtained from the deployed movie recommendation system app.* 
 
 <p align="center">
 <picture>
@@ -219,9 +234,9 @@ From the Ranking of recommendations section above, we see that the model does a 
 </picture>
 </p>
 
-*Figure : Screenshots of the recommendations for movies based on the film "Green Book" obtained from the deployed movie recommendation system app.* 
+*Figure 11: Screenshots of the recommendations for movies based on the film "Green Book" obtained from the deployed movie recommendation system app.* 
 
-One way to circumvent this problem would be to adjust the ranking algorithm by, for example, enforcing the criteria that 60% of recommendations must be of movies released in the last 10 years. Another approach would be to adjust the model itself. One extension to the LDA model, known as Dynamic LDA, attempts to model the evolution of topics over time to account for the way in which the usage of certain words has evolved [see Blei, et al. ICML'06. (2006)](https://dl.acm.org/doi/abs/10.1145/1143844.1143859). A final way to improve the recommendations would be to tune the model parameters not for perplexity, but rather for some other downstream task, such as click-through rate.
+One way to circumvent this problem would be to adjust the ranking algorithm by, for example, enforcing the criteria that 60% of recommendations must be of movies released in the last 10-20 years. Another approach would be to adjust the model itself. One extension to the LDA model, known as Dynamic LDA, attempts to model the evolution of topics over time to account for the way in which the usage of certain words has evolved [see Blei, et al. ICML'06. (2006)](https://dl.acm.org/doi/abs/10.1145/1143844.1143859). A final way to improve the recommendations would be to tune the model parameters not for perplexity, but rather for some other downstream task, such as click-through rate, watch time, or some combination of metrics.
 
 ### Resources
 [Microsoft Recommenders](https://github.com/recommenders-team/recommenders) - well-maintained GitHub repository detailing the best practices for building and deploying recommender systems.
