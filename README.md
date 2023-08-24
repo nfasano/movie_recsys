@@ -52,7 +52,7 @@ The following figure shows the life-cycle of this movie recommendation project, 
 </picture>
 </p>
 
-![image_example]("https://github.com/nfasano/movie_recsys/blob/main/movie_rec_pipeline.jpg" alt="drawing" width="800")
+![image_example](https://github.com/nfasano/movie_recsys/blob/main/movie_rec_pipeline.jpg)
 
 *Figure 2: Life-cycle diagram for this recommender system highlighting the data engineering and machine learning loops, as well as model deployment and monitoring.* 
 
