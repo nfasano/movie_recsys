@@ -23,7 +23,7 @@ ________________________________________________________________________________
     * [Resources](#resources)
 
 ## Introduction: project motivation and scope
-The goal of this project was to build a movie recommender that suggests new movies to watch that are similar in content to an input movie. It helps users find potentially unknown movies that have similar topics to their favorite movies. To accomplish this, I set out to  Latent Dirichlet allocations (LDA) was used to find the latent topics of the entire corpus and cosine-similarity was used to find pairs of movies with similar latent topics. The film script dataset was webscraped from various sites and combined with additional metadata from publically available datasets (IMDb.com, tmdb.org, and MovieLens.com). 
+The goal of this project was to build a movie recommender that suggests new movies to watch that are similar in content to an input movie. It helps users find unknown movies that have similar topics to their favorite movies. Latent Dirichlet allocations (LDA) was used to find the latent topics of the entire corpus and cosine-similarity was used to find pairs of movies with similar latent topics. The film script dataset was webscraped from various sites and combined with additional metadata from publically available datasets (IMDb.com, tmdb.org, and MovieLens.com). 
 
 The deployed recommender can be tested by following [this link](https://nmfasano5-content-based-movie-recommendation-system.hf.space). A screenshot showing some example recommendations based on the movie input "Remember the Titans" is shown in the following figure. The remainder of this README.md file details the workflow used to build the recommender system, including the data engineering and machine learning loops which allow for seamless improvements to any part of the system.
 
@@ -48,11 +48,11 @@ The following figure shows the life-cycle of this movie recommendation project, 
 </picture>
 </p>
 
-*Figure 2: Life-cycle diagram for this recommender system.* 
+*Figure 2: Life-cycle diagram for this recommender system highlighting the data engineering and machine learning loops, as well as model deployment and monitoring.* 
 
-The diagram begins with data engineering, where we collected disparate datasets through webscrapping of movie script data and . These datasets are then cleaned and synthesized . Functions are written to continuously clean and update the database for improving the quality of data for training the machine learning model.
+The diagram begins with data engineering, where we first collected disparate datasets through webscrapping of movie script data and downloading of public datasets available for noncommercial use. These datasets are then cleaned and synthesized into a coherent database by matching the movie IDs between datasets. Throughout the project, the dataset is continuously updated to fix errors or add missing data. This improved data quality leads to a better trained model and a better experience for the user of the recommendation system. With a cleaned and synthesized dataset, the machine learning loop can begin. In this phase of the project, we first began by doing some exploratory data analysis to understand the richness of the dataset and then preprocessed the datasets (created a bag of words representation) into a form ready to be used for training of the model. The model we chose is Latent Dirichlet Allocation (LDA) which models each document as a mixture of topics with each topic containing a mixture of words. The advantages and shortcomings of LDA are highlighted in the model evaluation phase. Finally, the model is deployed as a web-based app using gradio to build the app and Hugging Face Spaces to host the app permanently and for free.
 
-With a cleaned and synthesized dataset, the machine learning loop can begin. In this phase of the project, we first began by doing some exploratory data analysis to understand the richness of the dataset and then preprocessed the datasets (created a bag of words representation) into a form ready to be used for training of the model.
+The specifics of each phase are discussed in more detail in the following sections. The corresponding notebook or Python file is also highlighted if the reader is interested in looking into the source code, most of which is well documented. 
 
 
 ### Data engineering pipeline
@@ -75,7 +75,7 @@ With a cleaned and synthesized dataset, the machine learning loop can begin. In 
     - Note: This dataset is freely available for noncommercial use.
 
 #### Data wrangling
-(see recsys_content_based/data_cleaning_and_synthesis.ipynb notebook for implementation)
+(see [data_cleaning_and_synthesis.ipynb](https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/data_cleaning_and_synthesis.ipynb) notebook for implementation)
 To make this data usable to train our machine learning models and be available as metadata for the recommender app, it is necessary to clean and synthesize the datasets into one database. To clean the webscraped data, we manually inspected the movie titles and year of release and fixed any inconsistencies or errors, and changed the movie title formatting to be the same as the IMDb and tmdb datasets. Some examples of this data cleaning are shown below:
 
 1) Fixed errors -- e.g. changed movie year from "0000" to "1999" or from "20147" to "2017"
@@ -94,7 +94,7 @@ The next step was to find matching title IDs from the websracpped script dataset
 *Figure : Number of movies per year in present in the script dataset.* 
 
 #### Database updating
-(see recsys_content_based/data_updating.ipynb notebook for implementation)
+(see [data_preprocessing_eda.ipynb](https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/data_preprocessing_eda.ipynb)notebook for implementation)
 After synthesizing and cleaning the datasets in the data wrangling phase, there still existed some missing data or errors that were discovered during the machine learning loop or after deployment. To fix these errors in an organized manner, I wrote a notebook (data_updating.ipynb) that allows one to easily update the cleaned database on a per-entry basis similar to how SQLs UPDATE method works. 
   
 ### Machine learning pipeline
