@@ -1,10 +1,10 @@
 # Content-based movie recommendation system
 
-Welcome to this GitHub repository explaining my journey into building a movie recommender system. 
+Welcome to this GitHub repository explaining my journey into building an end-to-end movie recommender system. 
 
-The rest of this ReadMe.md details the full life-cycle of the recommender system, including the data engineering and machine learning pipelines. All the code for the recommender system is contained in the recsys_content_based folder of this repo.
+This README.md file details the full life-cycle of the recommender system, especially the data engineering and machine learning pipelines. All the code for the recommender system in its current state is contained in the 'recsys_content_based' folder of this repo. The 'recsys_collab_based' folder contains notebooks implementing collaborative-based recommender algorithms (matrix factorization, Naive Bayes, nearest neighbors, etc.), but this part of the project is still a work in progress. 
 
-Just came here for the awesome recommendations - then click [this link](https://nmfasano5-content-based-movie-recommendation-system.hf.space)
+Just came here for a great movie recommendation - then follow [this link](https://nmfasano5-content-based-movie-recommendation-system.hf.space) to get your recommendation now.
 ____________________________________________________________________________________________
 
 ### Jump to section
@@ -85,6 +85,14 @@ To make this data usable to train our machine learning models and be available a
 
 The next step was to find matching title IDs from the websracpped script dataset with he IMDb and tmdb datasets. A few different approaches were taken to systematically find these IDs, such as matching movie titles and movie year between the script dataset and IMDb/tmdb datasets. Additionally, the tmdb.org website provides a convenient API that can be queried for all data using either tmdb ID, IMDb ID, or movie title and year, which allows for finding all relevant movie data when given any one of these three. This API was particularly helpful when the tmdb ID was known but the IMDb ID was missing or when the movie title in the script dataset matched the one in the tmdb dataset but not the IMDb dataset (some movies titles, especially foreign films, can change over time).
 
+<p align="center">
+<picture>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/data_preprocessing_eda_out/num_movies_vs_year.png" alt="drawing" width="400"/> 
+</picture>
+</p>
+
+*Figure : Number of movies per year in present in the script dataset.* 
+
 #### Database updating
 (see recsys_content_based/data_updating.ipynb notebook for implementation)
 After synthesizing and cleaning the datasets in the data wrangling phase, there still existed some missing data or errors that were discovered during the machine learning loop or after deployment. To fix these errors in an organized manner, I wrote a notebook (data_updating.ipynb) that allows one to easily update the cleaned database on a per-entry basis similar to how SQLs UPDATE method works. 
@@ -100,14 +108,6 @@ To process the script data for the LDA model, the following Natural Language Pro
 - removed punctuation from entire corpus
 - bag of words representation (create vector X of size num_movies by num_words)
 
-<!---
-<p align="center">
-<picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/data_preprocessing_eda_out/num_movies_vs_year.png" alt="drawing" width="800"/> 
-</picture>
-</p>
---->
-
 The following figure shows the top 60 words and their word count across the entire corpus after the removal of stop words and words present in greater than 90% of the documents. For this figure, lemmatization was turned off during preprocessing which is why the words "friend" and "friends" appear. Here we see the diversity of words present in the corpus where the topic of family seems especially prevalent (e.g. words like mom, mother, baby, son, wife, father, brother).
 
 <p align="center">
@@ -116,8 +116,10 @@ The following figure shows the top 60 words and their word count across the enti
 </picture>
 </p>
 
+*Figure : Top 60 words contained in the entire corpus after removing stop words and words present in greater than 90% of the documents.* 
+
 #### Model building
-The model used to find movies with similar content was Latent Dirichlet Allocation (LDA), which is a three-level hierarchical Bayesian model widely used for uncovering latent topics within large corpus [cite: Blei, et al. Jorunal of Machine Learning Research 2003]. In the context of this project, LDA is a generative probabilistic model that represents movie scripts (the documents) as a mixture of latent topics and represents each topic by a distribution of words. 
+The model used to find movies with similar content was Latent Dirichlet Allocation (LDA), which is a three-level hierarchical Bayesian model widely used for uncovering latent topics within large corpus [cite: Blei, et al. JMLR 2003](https://jmlr.csail.mit.edu/papers/v3/blei03a.html). In the context of this project, LDA is a generative probabilistic model that represents movie scripts (the documents) as a mixture of latent topics and represents each topic by a distribution of words. 
 
 Importantly, LDA allows for documents to be represented by many different topics at the same time. Ideally, this will allow the model to distinguish between movies that have the same dominant topic but very different sub-topics. As an example, consider the movies 'Space Jam' and 'Remember the Titans.' Both films are predominantly about sports, but 'Space Jam' is also a comedy film geared toward younger audiences, and 'Remember the Titans' is also a biographical film about the end of segregation in American schools. (Note that LDA makes no guarantees about what the latent topics will represent or whether or not they will be interpretable as Genres. Nonetheless, I do find that the discovered topics are generally interpretable)
 
@@ -128,13 +130,15 @@ Drawbacks to the LDA model:
 2. the topics are static and do not capture any time evolution
 3. can produce topics with words that are uncorrelated, especially in noisy datasets
 
-To determine the number of topics, n_components in the code base, we train a range of LDA models with different numbers of topics and evaluate the perplexity on a held-out test set of data. The perplexity is defined as exp(-1*log-likelihood per word) so the lower the perplexity, the better the model. The following figure shows the result of this hyperparameter scan, indicating that the reduction in perplexity with an increasing number of topics plateaus at ~20 topics.
+To determine the number of topics, n_components in the code base, we run 5-fold cross-validation in which 8000 were selected for the training dataset and 2000 samples were selected for the test set. Here we use the perplexity as the evaluation criteria. The perplexity is defined as exp(-1*log-likelihood per word) so the lower the perplexity, the better the model. The following figure shows the result of cross-validation procedure, indicating that the reduction in perplexity with an increasing number of topics plateaus at ~20 topics (n_components ~ 20).
 
 <p align="center">
 <picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building/ncomp_tuning2.png" alt="drawing" width="700"/> 
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building/ncomp_tuning.png" alt="drawing" width="400"/> 
 </picture>
 </p>
+
+*Figure : Average perplexity evaluated on the training dataset (blue) and testing dataset (red) as a function of the number of components used to train the model. The average and standard deviation are computed after performing a 5-fold cross-validation.* 
 
 #### Model evaluation
 
@@ -217,13 +221,13 @@ From the Ranking of recommendations section above, we see that the model does a 
 
 *Figure : Screenshots of the recommendations for movies based on the film "Green Book" obtained from the deployed movie recommendation system app.* 
 
-One way to circumvent this problem would be to adjust the ranking algorithm by, for example, enforcing the criteria that 60% of recommendations must be of movies released in the last 10 years. Another approach would be to adjust the model itself. One extension to the LDA model, known as Dynamic LDA, attempts to model the evolution of topics over time to account for the way in which the usage of certain words has evolved [see Blei, et al. ICML'06. (2006)]. A final way to improve the recommendations would be to tune the model parameters not for perplexity, but rather for some other downstream task, such as click-through rate.
+One way to circumvent this problem would be to adjust the ranking algorithm by, for example, enforcing the criteria that 60% of recommendations must be of movies released in the last 10 years. Another approach would be to adjust the model itself. One extension to the LDA model, known as Dynamic LDA, attempts to model the evolution of topics over time to account for the way in which the usage of certain words has evolved [see Blei, et al. ICML'06. (2006)](https://dl.acm.org/doi/abs/10.1145/1143844.1143859). A final way to improve the recommendations would be to tune the model parameters not for perplexity, but rather for some other downstream task, such as click-through rate.
 
 ### Resources
 [Microsoft Recommenders](https://github.com/recommenders-team/recommenders) - well-maintained GitHub repository detailing the best practices for building and deploying recommender systems.
 [Nvida](https://docs.nvidia.com/deeplearning/performance/recsys-best-practices/index.html) - Document discussing best practices for building recommender systems
-[Original LDA paper by Blei et al.]()
-[Dynamic LDA paper by Blei et al.]()
+[Original LDA paper by Blei et al. JMLR 2003](https://jmlr.csail.mit.edu/papers/v3/blei03a.html)
+[Dynamic LDA paper by Blei et al. ICML '06](https://dl.acm.org/doi/abs/10.1145/1143844.1143859)
 [Example of collaborative Topic model used at NYT](https://archive.nytimes.com/open.blogs.nytimes.com/2015/08/11/building-the-next-new-york-times-recommendation-engine/?mcubz=0&_r=0) - Discusses the NYTs experimentation with collaborative topic models (LDA is used for topic model) in production.
 
 Datasets:
