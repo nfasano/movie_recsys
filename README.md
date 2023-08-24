@@ -29,28 +29,14 @@ The goal of this project was to build a movie recommender that suggests new movi
 
 The deployed recommender can be tested by following [this link](https://nmfasano5-content-based-movie-recommendation-system.hf.space). A screenshot showing some example recommendations based on the movie input "Remember the Titans" is shown in the following figure. The remainder of this README.md file details the workflow used to build the recommender system, including the data engineering and machine learning loops which allow for seamless improvements to any part of the system.
 
-<p align="center">
-<picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/example_recsys_input.png" alt="drawing" width="850"/> 
-</picture>
-
-<picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/example_recsys_output.png" alt="drawing" width="850"/> 
-</picture>
-</p>
-
+![image_example](https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/example_recsys_input.png)
+![image_example](https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/example_recsys_output.png)
 *Figure 1: Snapshot of the movie recommender web app deployed to Hugging Face's spaces. In this example, the user began searching for a movie and then selected "Remember the Titans" from the list of available movies. The user chooses various filters to be applied to the recommendations and clicks Recommend. At this point, 5 movie titles along with some metadata and IMDb.com links to the movies' title pages are shown.* 
 
 ____________________________________________________________________________________________
 
 ## Components of this recommender system
 The following figure shows the life-cycle of this movie recommendation project, highlighting the data engineering and machine learning loops used to continuously make improvements to the recommender system. 
-
-<p align="center">
-<picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/movie_rec_pipeline.jpg" alt="drawing" width="800"/> 
-</picture>
-</p>
 
 ![image_example](https://github.com/nfasano/movie_recsys/blob/main/movie_rec_pipeline.jpg)
 
