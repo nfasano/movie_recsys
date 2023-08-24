@@ -1,10 +1,10 @@
 # Content-based movie recommendation system
 
-Welcome to this GitHub repository explaining my journey into building a movie recommender system. 
+Welcome to this GitHub repository explaining my journey into building an end-to-end movie recommender system. 
 
-The rest of this ReadMe.md details the full life-cycle of the recommender system, including the data engineering and machine learning pipelines. All the code for the recommender system is contained in the recsys_content_based folder of this repo.
+This README.md file details the full life-cycle of the recommender system, especially the data engineering and machine learning pipelines. All the code for the recommender system in its current state is contained in the 'recsys_content_based' folder of this repo. The 'recsys_collab_based' folder contains notebooks implementing collaborative-based recommender algorithms (matrix factorization, Naive Bayes, nearest neighbors, etc.), but this part of the project is still a work in progress. 
 
-Just came here for the awesome recommendations - then click [this link](https://nmfasano5-content-based-movie-recommendation-system.hf.space)
+Just came here for a great movie recommendation - then follow [this link](https://nmfasano5-content-based-movie-recommendation-system.hf.space) to get your recommendation now.
 ____________________________________________________________________________________________
 
 ### Jump to section
@@ -132,7 +132,7 @@ To determine the number of topics, n_components in the code base, we train a ran
 
 <p align="center">
 <picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building/ncomp_tuning2.png" alt="drawing" width="700"/> 
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building/ncomp_tuning.png" alt="drawing" width="700"/> 
 </picture>
 </p>
 
