@@ -52,6 +52,8 @@ The following figure shows the life-cycle of this movie recommendation project, 
 </picture>
 </p>
 
+![image_example]("https://github.com/nfasano/movie_recsys/blob/main/movie_rec_pipeline.jpg" alt="drawing" width="800")
+
 *Figure 2: Life-cycle diagram for this recommender system highlighting the data engineering and machine learning loops, as well as model deployment and monitoring.* 
 
 The diagram begins with data engineering, where we first collected disparate datasets through webscrapping of movie script data and downloading of public datasets available for noncommercial use. These datasets are then cleaned and synthesized into a coherent database by matching the movie IDs between datasets. Throughout the project, the dataset is continuously updated to fix errors or add missing data. This improved data quality leads to a better trained model and a better experience for the user of the recommendation system. With a cleaned and synthesized dataset, the machine learning loop can begin. In this phase of the project, we first began by doing some exploratory data analysis to understand the richness of the dataset and then preprocessed the datasets (created a bag of words representation) into a form ready to be used for training of the model. The model we chose is Latent Dirichlet Allocation (LDA) which models each document as a mixture of topics with each topic containing a mixture of words. The advantages and shortcomings of LDA are highlighted in the model evaluation phase. Finally, the model is deployed as a web-based app using gradio to build the app and Hugging Face Spaces to host the app permanently and for free.
