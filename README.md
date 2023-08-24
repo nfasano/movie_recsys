@@ -38,7 +38,7 @@ ________________________________________________________________________________
 ## Components of this recommender system
 The following figure shows the life-cycle of this movie recommendation project, highlighting the data engineering and machine learning loops used to continuously make improvements to the recommender system. 
 
-![image_example](https://github.com/nfasano/movie_recsys/blob/main/movie_rec_pipeline.jpg)
+[[https://github.com/nfasano/movie_recsys/blob/main/movie_rec_pipeline.jpg]]
 
 *Figure 2: Life-cycle diagram for this recommender system highlighting the data engineering and machine learning loops, as well as model deployment and monitoring.* 
 
