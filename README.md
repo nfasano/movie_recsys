@@ -133,15 +133,13 @@ To determine the number of topics, we ran a 5-fold cross-validation in which 800
 #### Model evaluation
 (see [model_eval.ipynb](https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval.ipynb) notebook for implementation)
 
-The following figure shows the top words represented in the first 5 topics of the 20-topic model. Most of these topics are readily interpretable as mentioned previously. Loosely speaking topic 1 represents war-type movies, topic 2 represents Christmas/holiday movies, topic 4 represents crime-type movies, and topic 5 represents sport-type movies. Topic 3 is a bit harder to label, but seems to represent a class of people, particularly when addressed formerly with words such as mr, mrs, dear, and darling. Each topic, however, does have some words that seem misplaced, such as harassment in topic 2 and the words nick, gwen, gandhi, jasper, and phil in topic 5.
+Figure 5 shows the top words represented in the first 5 topics of the 20-topic model. Most of these topics are reasonably interpretable. Loosely speaking topic 1 represents war-type movies, topic 2 represents Christmas/holiday movies, topic 4 represents crime-type movies, and topic 5 represents sport-type movies. Topic 3 is a bit harder to label, but seems to represent a class of people, particularly when addressed formerly with words such as mr, mrs, dear, and darling. Each topic, however, does have some words that seem misplaced, such as harassment in topic 2 and the words nick, gwen, gandhi, jasper, and phil in topic 5.
 
-<p align="center">
-<picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/select_topics.png" alt="drawing" width="800"/> 
-</picture>
-</p>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/select_topics.png" alt="drawing" width="100%"/> 
 
-The next figure shows a movie's distribution over the 20 topics and the top 20 words present in the two highest weighted topics for that movie for three different movies: (a) WALL-E, (b) Schindler's List, and (c) Remember the Titans.
+*Figure 6: Distribution of the top 20 words present in the first five topics of the 20-topic model.* 
+
+The next figure shows a movie's distribution over the 20 topics and the top 15 words present in the two highest weighted topics for that movie for three different movies: (a) WALL-E, (b) Schindler's List, and (c) Remember the Titans.
 
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/the_dark_knight_top_topics.png" alt="drawing" width="100%"/> 
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/a_christmas_carol,_2020_top_topics.png" alt="drawing" width="100%"/> 
