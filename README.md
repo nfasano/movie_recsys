@@ -143,8 +143,8 @@ The following figure shows the top words represented in the first 5 topics of th
 
 The next figure shows a movie's distribution over the 20 topics and the top 20 words present in the two highest weighted topics for that movie for three different movies: (a) WALL-E, (b) Schindler's List, and (c) Remember the Titans.
 
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/walle_top_topics.png" alt="drawing" width="100%"/> 
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/schindlers_list_top_topics.png" alt="drawing" width="100%"/> 
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/the_dark_knight_top_topics.png" alt="drawing" width="100%"/> 
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/a_christmas_carol,_2020_top_topics.png" alt="drawing" width="100%"/> 
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/remember_the_titans_top_topics.png" alt="drawing" width="100%"/> 
 
 *Figure 7: Three examples of a movie's distribution over the 20 topics and the top 20 words present in the two highest weighted topics for that movie. (a) WALL-E, (b) Schindler's List, and (c) Remember the Titans.* 
