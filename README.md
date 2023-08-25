@@ -95,6 +95,7 @@ ________________________________________________________________________________
 
 #### Data preprocessing
 (see [data_preprocessing_eda.ipynb](https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/data_preprocessing_eda.ipynb) notebook for implementation)
+
 To process the script data for the LDA model, the following Natural Language Processing tasks were performed (see recsys_content_based/data_preprocessing_eda.ipynb notebook for implementation):
 - stop word removal from NLTK list of stop words
 - word mapping for words with the same meaning but different spellings (e.g. okay -> ok)
@@ -125,16 +126,13 @@ Drawbacks to the LDA model:
 
 To determine the number of topics, n_components in the code base, we run 5-fold cross-validation in which 8000 were selected for the training dataset and 2000 samples were selected for the test set. Here we use the perplexity as the evaluation criteria. The perplexity is defined as exp(-1*log-likelihood per word) so the lower the perplexity, the better the model. The following figure shows the result of cross-validation procedure, indicating that the reduction in perplexity with an increasing number of topics plateaus at ~20 topics (n_components ~ 20).
 
-<p align="center">
-<picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building/ncomp_tuning.png" alt="drawing" width="400"/> 
-</picture>
-</p>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building/ncomp_tuning.png" alt="drawing" width="60%"/> 
 
 *Figure 5: Average perplexity evaluated on the training dataset (blue) and testing dataset (red) as a function of the number of components used to train the model. The average and standard deviation are computed after performing a 5-fold cross-validation.* 
 
 #### Model evaluation
 (see [model_eval.ipynb](https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval.ipynb) notebook for implementation)
+
 The following figure shows the top words represented in the first 5 topics of the 20-topic model. Most of these topics are readily interpretable as mentioned previously. Loosely speaking topic 1 represents war-type movies, topic 2 represents Christmas/holiday movies, topic 4 represents crime-type movies, and topic 5 represents sport type movies. Topic 3 is a bit harder to label, but seems to represent a class of people, particularly when addressed formerly with words such as mr, mrs, dear, darling. Each topic, however, does have some words that seem misplaced, such as harassment in topic 2 and the words nick, gwen, gandhi, jasper, and phil in topic 5.
 
 <p align="center">
@@ -145,19 +143,9 @@ The following figure shows the top words represented in the first 5 topics of th
 
 The next figure shows a movie's distribution over the 20 topics and the top 20 words present in the two highest weighted topics for that movie for three different movies: (a) WALL-E, (b) Schindler's List, and (c) Remember the Titans.
 
-<p align="center">
-<picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/walle_top_topics.png" alt="drawing" width="800"/> 
-</picture>
-    
-<picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/schindlers_list_top_topics.png" alt="drawing" width="800"/> 
-</picture>
-
-<picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/remember_the_titans_top_topics.png" alt="drawing" width="800"/> 
-</picture>
-</p>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/walle_top_topics.png" alt="drawing" width="100%"/> 
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/schindlers_list_top_topics.png" alt="drawing" width="100%"/> 
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/remember_the_titans_top_topics.png" alt="drawing" width="100%"/> 
 
 *Figure 7: Three examples of a movie's distribution over the 20 topics and the top 20 words present in the two highest weighted topics for that movie. (a) WALL-E, (b) Schindler's List, and (c) Remember the Titans.* 
 
@@ -168,19 +156,11 @@ After the ranking by cosine-similarity is computed, the list of movies is filter
 
 The following figure shows the output recommendations for these test examples. As you can see, the model does an excellent job of finding movies with similar underlying content. For example, take a look at the recommendations provided for the movies "Remember the Titans" and "Little Giants". Both films are about football teams but with very different contexts: Remember the Titans is while Little Giants is a comedy film about pee-wee football teams. Notice how the recommendations captures these differences and recommends serious sports films for Remember the Titans and other family/comedy sports movies for Little Giants. Note that the model does not see the genre of the movie - only the script text.
 
-<p align="center">
-<picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/littlegiants_recommendations.png" alt="drawing" width="750"/> 
-</picture>
-</p>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/littlegiants_recommendations.png" alt="drawing" width="100%"/> 
 
 *Figure 8: Screenshots of the recommendations for movies based on the film "Little Giants" obtained from the deployed movie recommendation system app.* 
 
-<p align="center">
-<picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/rememberthetitans_recommendations.png" alt="drawing" width="750"/> 
-</picture>
-</p>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/rememberthetitans_recommendations.png" alt="drawing" width="100%"/> 
 
 *Figure 9: Screenshots of the recommendations for movies based on the film "Remember the Titans" obtained from the deployed movie recommendation system app.* 
 
@@ -203,19 +183,11 @@ After deploying the model and experimenting with several use cases, I learned se
 
 From the Ranking of recommendations section above, we see that the model does a great job of finding movies with similar themes and sub-themes. One drawback of the model becomes apparent when we ask for recommendations about movies that take place in the past century but are filmed in the current century. Take for example the following two recommendation lists for the movies "Green Book" and "The Help". For both movies, the recommender has done a reasonable job finding movies with similar content, but I am not sure that these movies are the most relevant recommendations to be made since all of the recommended movies were written and filmed prior to 1991 (for "The Help") and prior to 1980 (for "Green Book"). 
 
-<p align="center">
-<picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/thehelp_recommendations.png" alt="drawing" width="750"/> 
-</picture>
-</p>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/thehelp_recommendations.png" alt="drawing" width="100%"/> 
 
 *Figure 10: Screenshots of the recommendations for movies based on the film "The Help" obtained from the deployed movie recommendation system app.* 
 
-<p align="center">
-<picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/greenbook_recommendations.png" alt="drawing" width="750"/> 
-</picture>
-</p>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/greenbook_recommendations.png" alt="drawing" width="100%"/> 
 
 *Figure 11: Screenshots of the recommendations for movies based on the film "Green Book" obtained from the deployed movie recommendation system app.* 
 
