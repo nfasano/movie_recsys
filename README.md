@@ -81,7 +81,7 @@ To make this data usable to train our machine learning models and be available a
 
 The next step was to find matching title IDs from the web scrapped script dataset with the IMDb and tmdb datasets. A few different approaches were taken to systematically find these IDs, such as matching movie titles and movie years between the script dataset and IMDb/tmdb datasets. Additionally, the tmdb.org website provides a convenient API that can be queried for all data using either tmdb ID, IMDb ID, or movie title and year, which allows for finding all relevant movie data when given any one of these three. This API was particularly helpful when the tmdb ID was known but the IMDb ID was missing or when the movie title in the script dataset matched the one in the tmdb dataset but not the IMDb dataset (some movie titles, especially foreign films, can change over time).
 
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/data_preprocessing_eda_out/num_movies_vs_year.png" width="60%">
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/eda_scripts_out/num_movies_vs_year.png" width="60%">
 
 *Figure 3: Number of movies per year present in the script dataset.* 
 
