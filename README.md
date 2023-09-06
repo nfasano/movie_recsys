@@ -161,9 +161,11 @@ The next figure shows a movie's distribution over the 20 topics and the top 15 w
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/the_dark_knight_top_topics.png" alt="drawing" width="100%"/> 
 </picture>
+
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/a_christmas_carol,_2020_top_topics.png" alt="drawing" width="100%"/> 
 </picture>
+
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/remember_the_titans_top_topics.png" alt="drawing" width="100%"/> 
 </picture>
