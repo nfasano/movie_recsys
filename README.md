@@ -1,8 +1,6 @@
 # Content-based movie recommendation system
 
-Welcome to this GitHub repository explaining my journey into building an end-to-end movie recommender system. 
-
-Just came here for a great movie recommendation - then follow [this link](https://nmfasano5-content-based-movie-recommendation-system.hf.space) to get your recommendation now.
+Welcome to this GitHub repository explaining my journey into building an end-to-end movie recommender system. Just came here for a great movie recommendation - follow [this link](https://nmfasano5-content-based-movie-recommendation-system.hf.space) to get your recommendation now!
 
 In this repo:
 - This README.md file details the full life-cycle of the deployed recommender system, especially the data engineering and machine learning pipelines.
