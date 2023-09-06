@@ -197,8 +197,11 @@ if __name__ == "__main__":
     path_to_csv = (
         "..\\database_film_scripts\\springfield_movie_scripts_2023_01_13_clean.csv"
     )
+
+    print(f"Loading in cleaned movie script dataset...")
     df = pd.read_csv(path_to_csv, index_col=[0])
     df = df[["movie_title", "movie_year", "script_text"]]
+    print("Done!")
 
     # Define stop words from nltk library
     nltk.download("stopwords")
@@ -212,11 +215,15 @@ if __name__ == "__main__":
     word_map = json.loads(word_map)
 
     # preprocess the script text and create BoW representation
+    print(f"Begin data preprocessing...")
     df = df_preprocessing(df, word_map, stop_words)
+    print("Done!")
 
+    print(f"Create bag of words representation...")
     X, word_key = construct_BoW(
         df, n_features=10000, max_df=0.8, min_df=3, lemmatization=False
     )
+    print("Done!")
 
     # save bag-of-words matrix and corresponding word_key
     sparse.save_npz("data_preprocessing_out\\X.npz", X)

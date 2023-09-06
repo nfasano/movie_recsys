@@ -16,10 +16,10 @@ def dataset_synthesis():
     path_to_scripts_csv = (
         "database_film_scripts\\springfield_movie_scripts_2023_01_13_clean.csv"
     )
-    path_to_imdb_titles_tsv = "database_IMDb\\2023_02_12_IMDb_dataset\\titleBasics.tsv"
     path_to_imdb_ratings_tsv = (
         "database_IMDb\\2023_02_12_IMDb_dataset\\titleRatings.tsv"
     )
+    path_to_imdb_titles_tsv = "database_IMDb\\2023_02_12_IMDb_dataset\\titleBasics.tsv"
 
     # import (cleaned) movie script data and retain only 5 columns
     df = pd.read_csv(path_to_scripts_csv, index_col=[0])
