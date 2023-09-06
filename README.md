@@ -30,8 +30,8 @@ The goal of this project was to build a movie recommender that suggests new movi
 The deployed recommender can be tested by following [this link](https://nmfasano5-content-based-movie-recommendation-system.hf.space). A screenshot showing some example recommendations based on the movie input "Remember the Titans" is shown in the following figure. The remainder of this README.md file details the workflow used to build the recommender system, including the data engineering and machine learning loops which allow for seamless improvements to any part of the system.
 
 
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/example_recsys_input.png" width="100%">
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/example_recsys_output.png" width="100%">
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/readme_images/example_recsys_input.png" width="100%">
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/readme_images/example_recsys_output.png" width="100%">
 
 
 *Figure 1: Snapshot of the movie recommender web app deployed to Hugging Face's spaces. In this example, the user began searching for a movie and then selected "Remember the Titans" from the list of available movies. The user chooses various filters to be applied to the recommendations and clicks Recommend. At this point, 5 movie titles along with some metadata and IMDb.com links to the movies' title pages are shown.* 
@@ -106,7 +106,7 @@ To process the script data for the LDA model, the following Natural Language Pro
 
 The following figure shows the top 60 words and their word count across the entire corpus after the removal of stop words and words present in greater than 90% of the documents. For this figure, lemmatization was turned off during preprocessing which is why the words "friend" and "friends" appear. Here we see the diversity of words present in the corpus where the topic of family seems especially prevalent (e.g. words like mom, mother, baby, son, wife, father, and brother).
 
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/data_preprocessing_eda_out/word_count_top_100.png" alt="drawing" width="100%"/> 
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/eda_scripts_out/word_count_top_100.png" alt="drawing" width="100%"/> 
 
 *Figure 4: Top 60 words contained in the entire corpus after removing stop words and words present in greater than 90% of the documents.* 
 
@@ -152,11 +152,11 @@ Now that we have learned the distribution of topics for each movie and the distr
 
 In figures 8 and 9 below, we show the recommendations provided for the input movies "Remember the Titans" and "Little Giants." Both films are about football teams but with very different contexts: Remember the Titans is while Little Giants is a comedy film about pee-wee football teams. Notice how the model captures these differences and recommends serious sports films for Remember the Titans and other family/comedy sports movies for Little Giants. Note that the model does not see the genre of the movie - only the script text.
 
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/littlegiants_recommendations.png" alt="drawing" width="100%"/> 
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/readme_images/littlegiants_recommendations.png" alt="drawing" width="100%"/> 
 
 *Figure 8: Screenshots of the provided recommendations based on the input film "Little Giants."* 
 
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/rememberthetitans_recommendations.png" alt="drawing" width="100%"/> 
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/readme_images/rememberthetitans_recommendations.png" alt="drawing" width="100%"/> 
 
 *Figure 9: Screenshots of the provided recommendations based on the input film "Remember the Titans."* 
 
@@ -179,11 +179,11 @@ After deploying the model and experimenting with several use cases, I learned se
 
 From the Ranking of recommendations section above, we see that the model does a great job of finding movies with similar themes and sub-themes. One drawback of the model becomes apparent when we ask for recommendations about movies that take place in the past century but are filmed in the current century. Take for example the following two recommendation lists for the movies "Green Book" and "The Help". For both movies, the recommender has done a reasonable job finding movies with similar content, but I am not sure that these movies are the most relevant recommendations to be made since all of the recommended movies were written and filmed before 1991 (for "The Help") and before 1980 (for "Green Book"). 
 
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/thehelp_recommendations.png" alt="drawing" width="100%"/> 
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/readme_images/thehelp_recommendations.png" alt="drawing" width="100%"/> 
 
 *Figure 10: Screenshots of the provided recommendations based on the input film "The Help."* 
 
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/images/greenbook_recommendations.png" alt="drawing" width="100%"/> 
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/readme_images/greenbook_recommendations.png" alt="drawing" width="100%"/> 
 
 *Figure 11: Screenshots of the provided recommendations based on the input film "Green Book."* 
 
