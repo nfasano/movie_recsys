@@ -140,7 +140,7 @@ Drawbacks to the LDA model:
 To determine the number of topics, we ran a 5-fold cross-validation in which 8000 were selected for the training dataset and 2000 samples were selected for the test set. Here we use the perplexity as the evaluation criteria. The perplexity is defined as exp(-1*log-likelihood per word) so the lower the perplexity, the better the model. The following figure shows the result of the cross-validation procedure, indicating that the reduction in perplexity with an increasing number of topics plateaus at ~20 topics (n_components ~ 20).
 
 <picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building/ncomp_tuning.png" alt="drawing" width="60%"/> 
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building_out/ncomp_tuning.png" alt="drawing" width="60%"/> 
 </picture>
    
 *Figure 5: Average perplexity evaluated on the training dataset (blue) and testing dataset (red) as a function of the number of components used to train the model. The average and standard deviation are computed after performing a 5-fold cross-validation.* 
@@ -151,7 +151,7 @@ To determine the number of topics, we ran a 5-fold cross-validation in which 800
 Figure 5 shows the top words represented in the first 5 topics of the 20-topic model. Most of these topics are reasonably interpretable. Loosely speaking topic 1 represents war-type movies, topic 2 represents Christmas/holiday movies, topic 4 represents crime-type movies, and topic 5 represents sport-type movies. Topic 3 is a bit harder to label, but seems to represent a class of people, particularly when addressed formerly with words such as mr, mrs, dear, and darling. Each topic, however, does have some words that seem misplaced, such as harassment in topic 2 and the words nick, gwen, gandhi, jasper, and phil in topic 5.
 
 <picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/select_topics.png" alt="drawing" width="100%"/> 
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval_out/select_topics.png" alt="drawing" width="100%"/> 
 </picture>
    
 *Figure 6: Distribution of the top 20 words present in the first five topics of the 20-topic model.* 
@@ -159,15 +159,13 @@ Figure 5 shows the top words represented in the first 5 topics of the 20-topic m
 The next figure shows a movie's distribution over the 20 topics and the top 15 words present in the two highest weighted topics for that movie for three different movies: (a) WALL-E, (b) Schindler's List, and (c) Remember the Titans.
 
 <picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/the_dark_knight_top_topics.png" alt="drawing" width="100%"/> 
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval_out/the_dark_knight_top_topics.png" alt="drawing" width="100%"/> 
 </picture>
-
 <picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/a_christmas_carol,_2020_top_topics.png" alt="drawing" width="100%"/> 
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval_out/a_christmas_carol,_2020_top_topics.png" alt="drawing" width="100%"/> 
 </picture>
-
 <picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/remember_the_titans_top_topics.png" alt="drawing" width="100%"/> 
+<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval_out/remember_the_titans_top_topics.png" alt="drawing" width="100%"/> 
 </picture>
    
 *Figure 7: Three examples of a movie's distribution over the 20 topics and the top 20 words present in the two highest weighted topics for that movie. (a) WALL-E, (b) Schindler's List, and (c) Remember the Titans.* 
