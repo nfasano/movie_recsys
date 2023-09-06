@@ -1,6 +1,7 @@
 
 database_film_scripts/scraped_scripts/
 database_IMDb/2023_02_12_IMDb_dataset/
+database_IMDb/ExploratoryAnalysis_sqlPracticeOne
 database_movieLens/
 database_the_numbers/
 eda_actor_network_graph/*.csv
