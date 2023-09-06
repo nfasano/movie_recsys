@@ -195,7 +195,7 @@ def construct_BoW(df, n_features=10000, max_df=0.8, min_df=1, lemmatization=Fals
 if __name__ == "__main__":
     # import cleaned text data from data_cleaning_and_synthesis.ipynb notebook
     path_to_csv = (
-        "data_cleaning_and_synthesis_out\springfield_movie_scripts_2023_01_13_clean.csv"
+        "..\\database_film_scripts\\springfield_movie_scripts_2023_01_13_clean.csv"
     )
     df = pd.read_csv(path_to_csv, index_col=[0])
     df = df[["movie_title", "movie_year", "script_text"]]

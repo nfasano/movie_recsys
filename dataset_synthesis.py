@@ -9,7 +9,7 @@ def dataset_synthesis():
     inputs:
             (none)
     outputs:
-            df, pd.DataFrame, synthesized scripts and IMDb dataset
+            df, a pd.DataFrame, synthesized scripts and IMDb dataset
     """
 
     # relative locations of csv snd tsv datasets

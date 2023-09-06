@@ -7,7 +7,7 @@ import re
 from sklearn.metrics.pairwise import cosine_similarity
 
 
-df = pd.read_csv("df_spaces_upload.csv", index_col=[0])
+df = pd.read_csv("dataset_spaces_upload.csv", index_col=[0])
 df["tmdb_poster_link"] = df["tmdb_poster_link"].fillna("NULL")
 df["imdb_link"] = df["imdb_link"].fillna("NULL")
 # read in (precomputed) transformed movie matrix data (num_movies x num_topics)
