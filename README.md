@@ -37,10 +37,10 @@ The deployed recommender can be tested by following [this link](https://nmfasano
 
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/readme_images/example_recsys_input.png" width="100%">
-<\picture>
+</picture>
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/readme_images/example_recsys_output.png" width="100%">
-<\picture>
+</picture>
 
 *Figure 1: Snapshot of the movie recommender web app deployed to Hugging Face's spaces. In this example, the user began searching for a movie and then selected "Remember the Titans" from the list of available movies. The user chooses various filters to be applied to the recommendations and clicks Recommend. At this point, 5 movie titles along with some metadata and IMDb.com links to the movies' title pages are shown.* 
 
@@ -92,7 +92,7 @@ The next step was to find matching title IDs from the web scrapped script datase
 
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/eda_scripts_out/num_movies_vs_year.png" width="60%">
-<\picture>
+</picture>
    
 *Figure 3: Number of movies per year present in the script dataset.* 
 
@@ -119,7 +119,7 @@ The following figure shows the top 60 words and their word count across the enti
 
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/eda_scripts_out/word_count_top_100.png" alt="drawing" width="100%"/> 
-<\picture>
+</picture>
    
 *Figure 4: Top 60 words contained in the entire corpus after removing stop words and words present in greater than 90% of the documents.* 
 
@@ -141,7 +141,7 @@ To determine the number of topics, we ran a 5-fold cross-validation in which 800
 
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_building/ncomp_tuning.png" alt="drawing" width="60%"/> 
-<\picture>
+</picture>
    
 *Figure 5: Average perplexity evaluated on the training dataset (blue) and testing dataset (red) as a function of the number of components used to train the model. The average and standard deviation are computed after performing a 5-fold cross-validation.* 
 
@@ -152,7 +152,7 @@ Figure 5 shows the top words represented in the first 5 topics of the 20-topic m
 
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/select_topics.png" alt="drawing" width="100%"/> 
-<\picture>
+</picture>
    
 *Figure 6: Distribution of the top 20 words present in the first five topics of the 20-topic model.* 
 
@@ -160,13 +160,13 @@ The next figure shows a movie's distribution over the 20 topics and the top 15 w
 
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/the_dark_knight_top_topics.png" alt="drawing" width="100%"/> 
-<\picture>
+</picture>
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/a_christmas_carol,_2020_top_topics.png" alt="drawing" width="100%"/> 
-<\picture>
+</picture>
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/model_eval/remember_the_titans_top_topics.png" alt="drawing" width="100%"/> 
-<\picture>
+</picture>
    
 *Figure 7: Three examples of a movie's distribution over the 20 topics and the top 20 words present in the two highest weighted topics for that movie. (a) WALL-E, (b) Schindler's List, and (c) Remember the Titans.* 
 
@@ -177,13 +177,13 @@ In figures 8 and 9 below, we show the recommendations provided for the input mov
 
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/readme_images/littlegiants_recommendations.png" alt="drawing" width="100%"/> 
-<\picture>
+</picture>
    
 *Figure 8: Screenshots of the provided recommendations based on the input film "Little Giants."* 
 
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/readme_images/rememberthetitans_recommendations.png" alt="drawing" width="100%"/> 
-<\picture>
+</picture>
    
 *Figure 9: Screenshots of the provided recommendations based on the input film "Remember the Titans."* 
 
@@ -208,13 +208,13 @@ From the Ranking of recommendations section above, we see that the model does a 
 
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/readme_images/thehelp_recommendations.png" alt="drawing" width="100%"/> 
-<\picture>
+</picture>
    
 *Figure 10: Screenshots of the provided recommendations based on the input film "The Help."* 
 
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/readme_images/greenbook_recommendations.png" alt="drawing" width="100%"/> 
-<\picture>
+</picture>
    
 *Figure 11: Screenshots of the provided recommendations based on the input film "Green Book."* 
 
