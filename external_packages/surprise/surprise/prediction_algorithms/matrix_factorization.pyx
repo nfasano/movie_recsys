@@ -466,11 +466,16 @@ class CTM(AlgoBase):
         # topic factors
         cdef double [:, ::1] theta = self.theta
 
+        for u, i, r in trainset.all_ratings():
+            # normalize latent factors
+            qi[i,:] = qi[i,:]/np.linalg.norm(qi[i,:])
+            pu[u,:] = pu[u,:]/np.linalg.norm(pu[u,:])
+
         cdef int u, i, f
         cdef int n_factors = self.n_factors
         cdef bint biased = self.biased
 
-        cdef double r, err, dot, puf, qif, thetaif
+        cdef double r, err, dot, puf, qif, thetaif, p_norm, q_norm
         cdef double global_mean = self.trainset.global_mean
 
         cdef double lr_bu = self.lr_bu
@@ -509,6 +514,10 @@ class CTM(AlgoBase):
                     thetaif = theta[i, f]
                     pu[u, f] += lr_pu * (err * qif - reg_pu * puf)
                     qi[i, f] += lr_qi * (err * puf - reg_qi * (qif - thetaif))
+
+                # normalize 
+                qi[i,:] = qi[i,:]/np.linalg.norm(qi[i,:])
+                pu[u,:] = pu[u,:]/np.linalg.norm(pu[u,:])
 
         self.bu = np.asarray(bu)
         self.bi = np.asarray(bi)
