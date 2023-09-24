@@ -466,10 +466,7 @@ class CTM(AlgoBase):
         # topic factors
         cdef double [:, ::1] theta = self.theta
 
-        for u, i, r in trainset.all_ratings():
-            # normalize latent factors
-            qi[i,:] = qi[i,:]/np.linalg.norm(qi[i,:])
-            pu[u,:] = pu[u,:]/np.linalg.norm(pu[u,:])
+
 
         cdef int u, i, f
         cdef int n_factors = self.n_factors
@@ -491,6 +488,11 @@ class CTM(AlgoBase):
         if not biased:
             global_mean = 0
 
+        for u, i, r in trainset.all_ratings():
+            # normalize latent factors
+            qi[i,:] = qi[i,:]/np.linalg.norm(qi[i,:])
+            pu[u,:] = pu[u,:]/np.linalg.norm(pu[u,:])
+            
         for current_epoch in range(self.n_epochs):
             if self.verbose:
                 print("Processing epoch {}".format(current_epoch))
