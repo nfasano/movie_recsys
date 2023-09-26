@@ -489,9 +489,11 @@ class CTM(AlgoBase):
             global_mean = 0
 
         for u, i, r in trainset.all_ratings():
-            # normalize latent factors
-            qi[i,:] = qi[i,:]/np.linalg.norm(qi[i,:])
-            pu[u,:] = pu[u,:]/np.linalg.norm(pu[u,:])
+            q_norm = np.linalg.norm(qi[i,:])
+            p_norm = np.linalg.norm(pu[u,:])
+            for f in range(n_factors):
+                qi[i,f] = qi[i,f]/q_norm
+                pu[u,f] = pu[u,f]/p_norm
             
         for current_epoch in range(self.n_epochs):
             if self.verbose:
@@ -518,8 +520,11 @@ class CTM(AlgoBase):
                     qi[i, f] += lr_qi * (err * puf - reg_qi * (qif - thetaif))
 
                 # normalize 
-                qi[i,:] = qi[i,:]/np.linalg.norm(qi[i,:])
-                pu[u,:] = pu[u,:]/np.linalg.norm(pu[u,:])
+                q_norm = np.linalg.norm(qi[i,:])
+                p_norm = np.linalg.norm(pu[u,:])
+                for f in range(n_factors):
+                    qi[i,f] = qi[i,f]/q_norm
+                    pu[u,f] = pu[u,f]/p_norm
 
         self.bu = np.asarray(bu)
         self.bi = np.asarray(bi)
