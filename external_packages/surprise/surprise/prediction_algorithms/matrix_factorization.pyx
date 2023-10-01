@@ -510,7 +510,7 @@ class CTM(AlgoBase):
                 for f in range(n_factors):
                     puf = pu[u, f]
                     qif = qi[i, f]
-                    thetaif = qif#self.theta[itheta, f]
+                    thetaif = self.theta[itheta, f]
                     pu[u, f] += lr_pu * (err * qif - reg_pu * puf)
                     qi[i, f] += lr_qi * (err * puf - reg_qi * qif + reg_theta*thetaif)
 
