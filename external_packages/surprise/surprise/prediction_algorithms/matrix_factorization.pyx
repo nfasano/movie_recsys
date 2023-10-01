@@ -336,7 +336,7 @@ class CTM(AlgoBase):
 
     Args:
         theta: The topic representations from LDA (numpy array of size (n_itmes x n_factors))
-        n_factors: The number of factors. Must equal the number of topics LDA.
+        n_factors: The number of factors. Must equal the number of factors LDA (n_factors).
         n_epochs: The number of iteration of the SGD procedure. Default is
             ``20``.
         biased(bool): Whether to use baselines (or biases). See :ref:`note
@@ -387,14 +387,14 @@ class CTM(AlgoBase):
         
     """
 
-    def __init__(self, theta, n_factors=100, n_epochs=20, biased=True, init_mean=0,
+    def __init__(self, theta, n_epochs=20, biased=True, init_mean=0,
                  init_std_dev=.1, lr_all=.005,
                  reg_all=.02, lr_bu=None, lr_bi=None, lr_pu=None, lr_qi=None,
                  reg_bu=None, reg_bi=None, reg_pu=None, reg_qi=None,
                  random_state=None, verbose=False):
 
         self.theta = theta
-        self.n_factors = n_factors
+        self.n_factors = theta.shape[1]
         self.n_epochs = n_epochs
         self.biased = biased
         self.init_mean = init_mean
@@ -472,7 +472,7 @@ class CTM(AlgoBase):
         cdef int n_factors = self.n_factors
         cdef bint biased = self.biased
 
-        cdef double r, err, dot, puf, qif, thetaif, p_norm, q_norm
+        cdef double r, err, dot, puf, qif, thetaif
         cdef double global_mean = self.trainset.global_mean
 
         cdef double lr_bu = self.lr_bu
@@ -487,13 +487,6 @@ class CTM(AlgoBase):
 
         if not biased:
             global_mean = 0
-
-        for u, i, r in trainset.all_ratings():
-            q_norm = np.linalg.norm(qi[i,:])
-            p_norm = np.linalg.norm(pu[u,:])
-            for f in range(n_factors):
-                qi[i,f] = qi[i,f]/q_norm
-                pu[u,f] = pu[u,f]/p_norm
             
         for current_epoch in range(self.n_epochs):
             if self.verbose:
@@ -519,13 +512,6 @@ class CTM(AlgoBase):
                     pu[u, f] += lr_pu * (err * qif - reg_pu * puf)
                     qi[i, f] += lr_qi * (err * puf - reg_qi * (qif - thetaif))
 
-                # normalize 
-                q_norm = np.linalg.norm(qi[i,:])
-                p_norm = np.linalg.norm(pu[u,:])
-                for f in range(n_factors):
-                    qi[i,f] = qi[i,f]/q_norm
-                    pu[u,f] = pu[u,f]/p_norm
-
         self.bu = np.asarray(bu)
         self.bi = np.asarray(bi)
         self.pu = np.asarray(pu)
@@ -539,23 +525,36 @@ class CTM(AlgoBase):
         known_user = self.trainset.knows_user(u)
         known_item = self.trainset.knows_item(i)
 
-        if self.biased:
-            est = self.trainset.global_mean
 
-            if known_user:
-                est += self.bu[u]
+        if known_user and not known_item:
+            if self.biased:
+                est = self.trainset.global_mean
 
-            if known_item:
-                est += self.bi[i]
-
-            if known_user and known_item:
-                est += np.dot(self.qi[i], self.pu[u])
-
-        else:
-            if known_user and known_item:
-                est = np.dot(self.qi[i], self.pu[u])
+                if known_user:
+                    est += self.bu[u]
+                    est += np.dot(self.theta[i], self.pu[u])
+                    
             else:
                 raise PredictionImpossible('User and item are unknown.')
+
+        else:
+            if self.biased:
+                est = self.trainset.global_mean
+
+                if known_user:
+                    est += self.bu[u]
+
+                if known_item:
+                    est += self.bi[i]
+
+                if known_user and known_item:
+                    est += np.dot(self.qi[i], self.pu[u])
+
+            else:
+                if known_user and known_item:
+                    est = np.dot(self.qi[i], self.pu[u])
+                else:
+                    raise PredictionImpossible('User and item are unknown.')
 
         return est
 
