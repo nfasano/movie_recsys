@@ -5,6 +5,7 @@ factorization.
 
 cimport numpy as np  # noqa
 import numpy as np
+import pickle
 from libc.math cimport sqrt
 
 from .algo_base import AlgoBase
@@ -335,7 +336,6 @@ class CTM(AlgoBase):
 
 
     Args:
-        theta: The topic representations from LDA (numpy array of size (n_itmes x n_factors))
         n_factors: The number of factors. Must equal the number of factors LDA (n_factors).
         n_epochs: The number of iteration of the SGD procedure. Default is
             ``20``.
@@ -387,14 +387,16 @@ class CTM(AlgoBase):
         
     """
 
-    def __init__(self, theta, n_epochs=20, biased=True, init_mean=0,
+    def __init__(self, n_epochs=20, biased=True, init_mean=0,
                  init_std_dev=.1, lr_all=.005,
                  reg_all=.02, lr_bu=None, lr_bi=None, lr_pu=None, lr_qi=None,
-                 reg_bu=None, reg_bi=None, reg_pu=None, reg_qi=None,
+                 reg_bu=None, reg_bi=None, reg_pu=None, reg_qi=None, reg_theta=None,
                  random_state=None, verbose=False):
 
-        self.theta = theta
-        self.n_factors = theta.shape[1]
+        with open("C:\\Users\\Nick\\Documents\\DataScience\\movie_recsys\\recsys_content_based\\model_building_out\\Xtran.txt", "rb") as f:
+            self.theta = pickle.load(f)
+
+        self.n_factors = self.theta.shape[1]
         self.n_epochs = n_epochs
         self.biased = biased
         self.init_mean = init_mean
@@ -407,6 +409,7 @@ class CTM(AlgoBase):
         self.reg_bi = reg_bi if reg_bi is not None else reg_all
         self.reg_pu = reg_pu if reg_pu is not None else reg_all
         self.reg_qi = reg_qi if reg_qi is not None else reg_all
+        self.reg_theta = reg_theta if reg_theta is not None else reg_all
         self.random_state = random_state
         self.verbose = verbose
 
@@ -462,7 +465,7 @@ class CTM(AlgoBase):
         # user factors
         cdef double [:, ::1] pu = rng.normal(self.init_mean, self.init_std_dev, size=(trainset.n_users, self.n_factors))
         # item factors
-        cdef double [:, ::1] qi = rng.normal(self.init_mean, self.init_std_dev, size=(trainset.n_items, self.n_factors))
+        cdef double [:, ::1] qi = self.theta # rng.normal(self.init_mean, self.init_std_dev, size=(trainset.n_items, self.n_factors))
         # topic factors
         cdef double [:, ::1] theta = self.theta
 
@@ -484,6 +487,7 @@ class CTM(AlgoBase):
         cdef double reg_bi = self.reg_bi
         cdef double reg_pu = self.reg_pu
         cdef double reg_qi = self.reg_qi
+        cdef double reg_theta = self.reg_theta
 
         if not biased:
             global_mean = 0
@@ -493,6 +497,7 @@ class CTM(AlgoBase):
                 print("Processing epoch {}".format(current_epoch))
 
             for u, i, r in trainset.all_ratings():
+                itheta = self.trainset.to_raw_iid(i)
                 # compute current error
                 dot = 0  # <q_i, p_u>
                 for f in range(n_factors):
@@ -508,15 +513,15 @@ class CTM(AlgoBase):
                 for f in range(n_factors):
                     puf = pu[u, f]
                     qif = qi[i, f]
-                    thetaif = theta[i, f]
+                    thetaif = theta[itheta, f]
                     pu[u, f] += lr_pu * (err * qif - reg_pu * puf)
-                    qi[i, f] += lr_qi * (err * puf - reg_qi * (qif - thetaif))
+                    qi[i, f] += lr_qi * (err * puf - reg_qi * (qif - reg_theta*thetaif))
 
         self.bu = np.asarray(bu)
         self.bi = np.asarray(bi)
         self.pu = np.asarray(pu)
         self.qi = np.asarray(qi)
-        self.theta = np.asarray(theta)
+      # self.theta = np.asarray(theta)
     
 
     def estimate(self, u, i):
@@ -531,8 +536,10 @@ class CTM(AlgoBase):
                 est = self.trainset.global_mean
 
                 if known_user:
+                    print('out-of-matrix predictions')
+                    itheta = int(i.lstrip("UKN__"))
                     est += self.bu[u]
-                    est += np.dot(self.theta[i], self.pu[u])
+                    est += np.dot(self.theta[itheta], self.pu[u])
                     
             else:
                 raise PredictionImpossible('User and item are unknown.')
