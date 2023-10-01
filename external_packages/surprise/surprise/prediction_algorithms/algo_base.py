@@ -9,7 +9,6 @@ from .. import similarities as sims
 from .optimize_baselines import baseline_als, baseline_sgd
 from .predictions import Prediction, PredictionImpossible
 
-
 class AlgoBase:
     """Abstract class where is defined the basic behavior of a prediction
     algorithm.

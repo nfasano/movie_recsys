@@ -394,8 +394,9 @@ class CTM(AlgoBase):
                  random_state=None, verbose=False):
 
         with open("C:\\Users\\Nick\\Documents\\DataScience\\movie_recsys\\recsys_content_based\\model_building_out\\Xtran.txt", "rb") as f:
-            self.theta = pickle.load(f)
+            theta = pickle.load(f)
 
+        self.theta = theta.copy()
         self.n_factors = self.theta.shape[1]
         self.n_epochs = n_epochs
         self.biased = biased
@@ -464,12 +465,8 @@ class CTM(AlgoBase):
         cdef double [::1] bi = np.zeros(trainset.n_items, dtype=np.double)
         # user factors
         cdef double [:, ::1] pu = rng.normal(self.init_mean, self.init_std_dev, size=(trainset.n_users, self.n_factors))
-        # item factors
-        cdef double [:, ::1] qi = self.theta # rng.normal(self.init_mean, self.init_std_dev, size=(trainset.n_items, self.n_factors))
-        # topic factors
-        cdef double [:, ::1] theta = self.theta
-
-
+        # item factors (initialized to theta)
+        cdef double [:, ::1] qi = self.theta.copy() #rng.normal(self.init_mean, self.init_std_dev, size=(trainset.n_items, self.n_factors))
 
         cdef int u, i, f
         cdef int n_factors = self.n_factors
@@ -513,15 +510,14 @@ class CTM(AlgoBase):
                 for f in range(n_factors):
                     puf = pu[u, f]
                     qif = qi[i, f]
-                    thetaif = theta[itheta, f]
+                    thetaif = qif#self.theta[itheta, f]
                     pu[u, f] += lr_pu * (err * qif - reg_pu * puf)
-                    qi[i, f] += lr_qi * (err * puf - reg_qi * (qif - reg_theta*thetaif))
+                    qi[i, f] += lr_qi * (err * puf - reg_qi * qif + reg_theta*thetaif)
 
         self.bu = np.asarray(bu)
         self.bi = np.asarray(bi)
         self.pu = np.asarray(pu)
         self.qi = np.asarray(qi)
-      # self.theta = np.asarray(theta)
     
 
     def estimate(self, u, i):
@@ -536,7 +532,6 @@ class CTM(AlgoBase):
                 est = self.trainset.global_mean
 
                 if known_user:
-                    print('out-of-matrix predictions')
                     itheta = int(i.lstrip("UKN__"))
                     est += self.bu[u]
                     est += np.dot(self.theta[itheta], self.pu[u])
