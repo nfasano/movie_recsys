@@ -12,3 +12,4 @@ recsys_content_based/__pycache__/
 __pycache__/
 recsys_content_based/.ipynb_checkpoints/
 recsys_collab_based/df_final.csv
+*.pptx
