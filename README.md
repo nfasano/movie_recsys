@@ -79,8 +79,7 @@ The following datasets were used in this work:
 	- Source: grouplens.org
 	- Content: 25+ million movie ratings using a 5-star rating system. The dataset contains 283228 users and 58098 movies and all users rated at least one movie 
 	- Note: This dataset is freely available for noncommercial use
-
-
+____________________________________________________________________________________________
 ### Data wrangling and cleaning
 To wrangle these datasets into one central database, we needed to find matching entry IDs between the four datasets. Conveniently, the MovieLens dataset contains matching IDs for the TMDB and IMDb datasets, so I only needed to focus on finding a matching ID between the film scripts dataset and one of the other three datasets. A few different approaches were taken to systematically find these IDs, such as matching movie titles and movie years between the script dataset and IMDb/TMDB/MovieLens datasets. Additionally, the themoviedb.org website provides an API that can be queried using movie title and year to return the corresponding IMDb and TMDB IDs. Any remaining movies from the film script dataset that did not have a matching IMDb ID were filled in manually.
 
@@ -91,6 +90,7 @@ Finally, it was necessary to clean the datasets for training the machine learnin
 - Removed duplicate entries from all datasets
 - Removed data entries that only contained irrelevant script text such as "None" or "More Movie Scripts | Request a Movie Transcript"
 
+____________________________________________________________________________________________
 
 ### Data preprocessing
 The ratings matrix obtained from MovieLens is already in a form ready to be used for model training, so I only needed to focus on the film scripts dataset. To process the script data for the LDA model, the following Natural Language Processing tasks were performed:
@@ -108,10 +108,12 @@ FIG. 2 shows the top 60 words and their word count across the entire corpus afte
 </picture>
 
 *FIG. 2: Word count for the top 60 words present in the vocabulary after data preprocessing.* 
-
+____________________________________________________________________________________________
 
 ### Model training and evaluation
 In this section, we discuss the details on creating the Collaborative Topic Model (CTM). First we discuss Latent Dirichlet Allocation for topic modeling of the film scripts dataset and then show how to integrate the learned topics into the matrix factorization framework, creating the final CTM model. The CTM model is then trained on training data and evaluated on held out test dataset using disparate metrics (RMSE and recall@k).
+
+____________________________________________________________________________________________
 
 #### Latent Dirichlet Allocation (LDA)
 Latent Dirichlet Allocation (LDA) is a three-level hierarchical Bayesian model widely used for uncovering latent topics within a large corpus of documents [5]. In LDA, each document is represented as a mixture of topics and the topics themselves are represented by a mixture of words. Importantly, LDA allows for documents to be represented by a misture of topics which will allow the model to distinguish between movies that have the same dominant topic but very different sub-topics. For example, consider the movies 'Little Giants' and 'Remember the Titans.' Both films are predominantly about sports, but 'Little Giants' is also a comedy film geared toward younger audiences, and 'Remember the Titans' is also a biographical film about the end of segregation in American schools. We wish for LDA to distinguish between these sub-topics when making recommendations.
@@ -156,6 +158,8 @@ A final drawback of the LDA model is that the topics are static and do not captu
 
 *FIG. 6: (left) Top five most similar movies to "The Help." (right) Top five most similar movies to "Green Book."* 
 
+____________________________________________________________________________________________
+
 #### Collaborative Topic Model (CTM)
 In the previous section, we built a topic model and found that it can provide reasonable movie recommendations based purely on the movie's content. In this section, we integrate the LDA model into the SVD model forming the complete CTM model.
 
@@ -199,6 +203,8 @@ ________________________________________________________________________________
 
 ### Conclusions and future work
 In this work we developed a collaborative topic model (CTM) for movie recommendations to users, combining Latent Dirichlet Allocation (LDA) applied to a corpus of film scripts and Singular Value Decomposition (SVD) applied to a user-movie ratings matrix. We find a 1% improvement in RMSE from the CTM model compared to SVD model and compute a recall@10 value of 44% for out-of-matrix predictions which alleviates the item cold-start problem. With the addition of movie content information (represented in this work as topics from LDA model) providing superior rating predictions compared to matrix factorization approaches alone, we plan to experiment with word embeddings to represent the film script corpus which may allow for more flexible representations of the corpus and lead to even better performance.
+
+____________________________________________________________________________________________
 
 ### Resources
 [1] J. Bennett, S. Lanning, et al., in Proceedings of KDD cup and workshop, Vol. 2007 (New York, 2007).
