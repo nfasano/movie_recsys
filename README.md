@@ -182,7 +182,7 @@ The results of these evaluation metrics are summarized in TABLE 1, where we see 
 _
 
 <picture>
-	<img src="https://github.com/nfasano/movie_recsys/blob/main/movie_recsys/ctm_model_eval/recall_at_k.png" width="75%">
+	<img src="https://github.com/nfasano/movie_recsys/blob/main/movie_recsys/ctm_model_eval/recall_at_k.png" width="60%">
 </picture>
 
 *FIG. 7: Recall@k vs k for in-matrix predictions (SVD and CTM models) and for out-of-matrix predictions (CTM model).* 
