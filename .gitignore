@@ -7,7 +7,6 @@ database/dataset_movieLens/*.csv
 database/dataset_the_numbers/
 eda_actor_network_graph/
 movie_recsys/model_building_out/hyperparameter_tuning/*.sav
-movie_recsys/model_building_out/hyperparameter_tuning/*.sav
 movie_recsys/__pycache__/
 __pycache__/
 movie_recsys/.ipynb_checkpoints/
