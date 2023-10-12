@@ -63,32 +63,23 @@ ________________________________________________________________________________
 
 ### Datasets used in this work
 The following datasets were used in this work:
-\begin{enumerate}
-    \item Film scripts 
-    \begin{itemize}
-        \item Source: Web scraped from IMSDb.com and springfieldspringfield.co.uk
-        \item Content: film title, film release year, film script for 35,000+ movies and 130,000+ TV episodes
-        \item Note: The code for web scraping the film scripts is available on this project's GitHub repository [3].
-    \end{itemize}
-    \item IMDb Non-Commercial Datasets
-    \begin{itemize}
-        \item Source: developer.imdb.com/non-commercial-datasets
-        \item Content: film title, average rating, genres, runtime, cast, and crew
-        \item Note: This dataset is freely available for noncommercial use
-    \end{itemize}
-    \item The Movie DataBase (TMBD)
-    \begin{itemize}
-        \item Source: themoviedb.org
-        \item Content: movie metadata (budget, revenue, runtime, cast, release date, etc.), movie posters
-        \item Note: This dataset is freely available for noncommercial use. In this work, the TMDB dataset was primarily used for displaying poster art on the movie recommender web app [4].
-    \end{itemize}
-    \item MovieLens Dataset
-    \begin{itemize}
-        \item Source: grouplens.org
-        \item Content: 25+ million movie ratings using a 5-star rating system. The dataset contains 283228 users and 58098 movies and all users rated at least one movie 
-        \item Note: This dataset is freely available for noncommercial use
-    \end{itemize}
-\end{enumerate}
+1. Film scripts 
+	- Source: Web scraped from IMSDb.com and springfieldspringfield.co.uk
+	- Content: film title, film release year, film script for 35,000+ movies and 130,000+ TV episodes
+	- Note: The code for web scraping the film scripts is available on this project's GitHub repository [3].
+2. IMDb Non-Commercial Datasets
+	- Source: developer.imdb.com/non-commercial-datasets
+	- Content: film title, average rating, genres, runtime, cast, and crew
+	- Note: This dataset is freely available for noncommercial use
+3. The Movie DataBase (TMBD)
+	- Source: themoviedb.org
+	- Content: movie metadata (budget, revenue, runtime, cast, release date, etc.), movie posters
+	- Note: This dataset is freely available for noncommercial use. In this work, the TMDB dataset was primarily used for displaying poster art on the movie recommender web app [4].
+4. MovieLens Dataset
+	- Source: grouplens.org
+	- Content: 25+ million movie ratings using a 5-star rating system. The dataset contains 283228 users and 58098 movies and all users rated at least one movie 
+	- Note: This dataset is freely available for noncommercial use
+
 
 ### Data wrangling and cleaning
 To wrangle these datasets into one central database, we needed to find matching entry IDs between the four datasets. Conveniently, the MovieLens dataset contains matching IDs for the TMDB and IMDb datasets, so I only needed to focus on finding a matching ID between the film scripts dataset and one of the other three datasets. A few different approaches were taken to systematically find these IDs, such as matching movie titles and movie years between the script dataset and IMDb/TMDB/MovieLens datasets. Additionally, the themoviedb.org website provides an API that can be queried using movie title and year to return the corresponding IMDb and TMDB IDs. Any remaining movies from the film script dataset that did not have a matching IMDb ID were filled in manually.
@@ -183,6 +174,8 @@ The results of these evaluation metrics are summarized in TABLE 1, where we see 
 </picture>
 
 *TABLE 1: Comparison of hyperparameters and evaluation metrics for SVD and CTM models.* 
+
+_
 
 <picture>
 	<img src="https://github.com/nfasano/movie_recsys/blob/main/movie_recsys/ctm_model_eval/recall_at_k.png" width="75%">
