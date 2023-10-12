@@ -6,10 +6,9 @@ database/dataset_IMDb/2023_02_12_IMDb_dataset/
 database/dataset_movieLens/*.csv
 database/dataset_the_numbers/
 eda_actor_network_graph/
-recsys_content_based/model_building_out/hyperparameter_tuning/*.sav
-recsys_content_based/model_building_out/hyperparameter_tuning/*.sav
-recsys_content_based/__pycache__/
+movie_recsys/model_building_out/hyperparameter_tuning/*.sav
+movie_recsys/model_building_out/hyperparameter_tuning/*.sav
+movie_recsys/__pycache__/
 __pycache__/
-recsys_content_based/.ipynb_checkpoints/
-recsys_collab_based/df_final.csv
+movie_recsys/.ipynb_checkpoints/
 *.pptx
