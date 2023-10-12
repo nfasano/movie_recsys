@@ -5,10 +5,11 @@ Welcome to this GitHub repository explaining my journey into building an end-to-
 Just came here for a great movie recommendation - follow [this link](https://nmfasano5-content-based-movie-recommendation-system.hf.space) to get your recommendation now!
 
 In this repo: 
-- This README.md file details the full life-cycle of the deployed recommender system, especially the data engineering and machine learning pipelines.
 - The 'database' folder contains the datasets used in this project, including the Python code used for web scraping, wrangling, and synthesizing the datasets.
-- The 'recsys_ctm' folder contains notebooks and Python scripts used to create the movie recommender system based on the collaborative topic model. 
 - The 'external_packages' folder contains open source repositories that were cloned and modified to create the collaborative topic model.
+- The 'movie_recsys' folder contains notebooks and Python scripts used to create the movie recommender system based on the collaborative topic model. 
+- The 'model_testing' folder contains notebooks for prototyped models
+- This README.md file details the full life-cycle of the deployed recommender system, especially the data engineering and machine learning pipelines.
 ____________________________________________________________________________________________
 
 ### Jump to section
