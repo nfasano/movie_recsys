@@ -41,7 +41,7 @@ In this work, we build a hybrid movie recommender system (FIG. 0) based on the c
 
 
 <picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/readme_images/movie_rec_pipeline.png" width="100%">
+<img src="https://github.com/nfasano/movie_recsys/blob/main/movie_recsys/readme_images/movie_rec_pipeline.png" width="100%">
 </picture>
 
 *FIG. 0: Workflow diagram of the recommender system, highlighting the data engineering and machine learning pipelines.* 
@@ -51,10 +51,10 @@ The deployed recommender can be tested by following [this link](https://nmfasano
 In the remainder of this README.md file, we first discuss the datasets used in this project and how they were cleaned and processed for training the machine learning algorithms. We then build the LDA model for topic modeling of the film script dataset and integrate this model into the SVD model to form the complete CTM model. Finally, the CTM and SVD models are evaluated by computing the root mean square error (RMSE) and recall@k metrics on a set of data not seen during training. We conclude by discussing possible extensions to this hybrid approach such as using word embeddings instead of topic modeling for developing the content side of the algorithm.
 
 <picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/readme_images/example_recsys_input.png" width="100%">
+<img src="https://github.com/nfasano/movie_recsys/blob/main/movie_recsys/readme_images/example_recsys_input.png" width="100%">
 </picture>
 <picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/readme_images/example_recsys_output.png" width="100%">
+<img src="https://github.com/nfasano/movie_recsys/blob/main/movie_recsys/readme_images/example_recsys_output.png" width="100%">
 </picture>
 
 *FIG. 1: Snapshot of the movie recommender web app deployed to Hugging Face's spaces. In this example, the user began searching for a movie and then selected "Remember the Titans" from the list of available movies. The user chooses various filters to be applied to the recommendations and clicks Recommend. At this point, 5 movie titles along with some metadata and IMDb.com links to the movies' title pages are shown.* 
