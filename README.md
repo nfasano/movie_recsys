@@ -228,11 +228,12 @@ Learning Research 12, 2825 (2011).
 [8] D. M. Blei and J. D. Lafferty, in Proceedings of the 23rd international conference on Machine learning (2006) pp. 113–120.
 
 Other useful sites and blog posts:
-[Microsoft Recommenders](https://github.com/recommenders-team/recommenders) - well-maintained GitHub repository detailing the best practices for building and deploying recommender systems.
 
-[Nvida](https://docs.nvidia.com/deeplearning/performance/recsys-best-practices/index.html) - Document discussing best practices for building recommender systems
+[a] [Microsoft Recommenders](https://github.com/recommenders-team/recommenders) - well-maintained GitHub repository detailing the best practices for building and deploying recommender systems.
 
-[Example of collaborative Topic model used at NYT](https://archive.nytimes.com/open.blogs.nytimes.com/2015/08/11/building-the-next-new-york-times-recommendation-engine/?mcubz=0&_r=0) - Discusses the NYTs experimentation with collaborative topic models (LDA is used for topic model) in production.
+[b] [Nvida](https://docs.nvidia.com/deeplearning/performance/recsys-best-practices/index.html) - Document discussing best practices for building recommender systems
+
+[c] [Example of collaborative Topic model used at NYT](https://archive.nytimes.com/open.blogs.nytimes.com/2015/08/11/building-the-next-new-york-times-recommendation-engine/?mcubz=0&_r=0) - Discusses the NYTs experimentation with collaborative topic models (LDA is used for topic model) in production.
 
 
 
