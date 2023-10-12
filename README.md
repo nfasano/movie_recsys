@@ -1,6 +1,6 @@
 # Enhancing Movie Recommendations with Collaborative Topic Modeling
 
-Welcome to this GitHub repository explaining my journey into building an end-to-end movie recommender system. Inspired by the seductive power of Tik-Tok's personalized feed and a strong desire to learn how industry recommender systems are designed, I am on a journey to learn the inner workings of cutting-edge recommenders.
+Welcome to this GitHub repository explaining my journey into building an end-to-end movie recommender system. Inspired by the hypnotic power of Tik-Tok's personalized feed and a strong desire to learn how industry recommender systems are designed, I am on a journey to learn the inner workings of cutting-edge recommenders.
 
 Just came here for a great movie recommendation - follow [this link](https://nmfasano5-content-based-movie-recommendation-system.hf.space) to get your recommendation now!
 
@@ -13,6 +13,7 @@ In this repo:
 ____________________________________________________________________________________________
 
 ### Jump to section
+* [Abstract](#abstract)
 * [Introduction: project motivation and scope](#introduction-project-motivation-and-scope)
 * [Datasets used in this work](#datasets-used-in-this-work)
 * [Data wrangling and cleaning](#data-wrangling-and-cleaning)
@@ -26,7 +27,8 @@ ________________________________________________________________________________
  
 ____________________________________________________________________________________________
 
-## Introduction: project motivation and scope
+### Abstract
+
 Movie recommender systems have become indispensable tools in the era of digital streaming, providing personalized
 content suggestions to users who are frequently overwhelmed by the vast selection of movies and television shows
 available to watch. In this work, we build a collaborative topic model for making movie recommendations. The
@@ -35,30 +37,21 @@ movie film scripts. We show that this hybrid model achieves a modest (1%) improv
 compared to traditional matrix factorization approaches, but alleviates the item cold-start problem with a recall@10
 score of 44% for movie titles not seen during training.
 
+____________________________________________________________________________________________
+
+### Introduction: project motivation and scope
+
 Consumers who visit a streaming platform to find something to watch are faced with an exorbitant amount of high-quality movies and television shows, making finding the right film overwhelming. This frustration decreases user satisfaction and overall watch time, affecting the business revenue of the streaming platforms that provide the content. To address this issue, recommendation models have been built that attempt to filter out films that a user is unlikely to engage with. Two broad classes of methods that can be applied to this filtering problem are collaborative-based filtering and content-based filtering. In collaborative filtering, previous user-item interactions (e.g. ratings or clicks) are leveraged to recommend novel items to a user. A popular collaborative filtering model is matrix factorization, which was popularized during the 2006 Netflix prize competition [1]. In content-based filtering, item features (e.g. film text or other metadata) are used to recommend new items to a user who has interacted with similar items in the past. Collaborative filtering methods provide diverse recommendations to users but cannot make recommendations for new films for which there are no ratings (i.e. the item cold-start problem). On the other hand, content filtering methods can easily recommend new films but tend to lack diversity in recommendations. The complementary set of pros and cons for these two methods has prompted the development of hybrid models which combine the merits of both approaches.
 
-In this work, we build a hybrid movie recommender system (FIG. 0) based on the collaborative topic model (CTM) [2]. In CTM, we combine singular value decomposition (SVD) for matrix factorization of the user-movie ratings matrix (i.e. a collaborative model) with Latent Dirichlet Allocation (LDA) for topic modeling of film scripts (i.e. a content model). The primary advantage of this hybrid approach is that it allows for in-matrix and out-of-matrix predictions of a user's rating for any movie in the database. In-matrix predictions provide ratings for movies that have been rated by at least one user, while out-of-matrix predictions provide ratings for movies that have never been rated which alleviates the item cold-start problem.
+In this work, we build a hybrid movie recommender system (FIG. 1) based on the collaborative topic model (CTM) [2]. In CTM, we combine singular value decomposition (SVD) for matrix factorization of the user-movie ratings matrix (i.e. a collaborative model) with Latent Dirichlet Allocation (LDA) for topic modeling of film scripts (i.e. a content model). The primary advantage of this hybrid approach is that it allows for in-matrix and out-of-matrix predictions of a user's rating for any movie in the database. In-matrix predictions provide ratings for movies that have been rated by at least one user, while out-of-matrix predictions provide ratings for movies that have never been rated which alleviates the item cold-start problem.
 
+In the remainder of this README.md file, we first discuss the datasets used in this project and how they were cleaned and processed for training the machine learning algorithms. We then build the LDA model for topic modeling of the film script dataset and integrate this model into the SVD model to form the complete CTM model. Finally, the CTM and SVD models are evaluated by computing the root mean square error (RMSE) and recall@k metrics on a set of data not seen during training. We conclude by discussing possible extensions to this hybrid approach such as using word embeddings instead of topic modeling for developing the content side of the algorithm.
 
 <picture>
 <img src="https://github.com/nfasano/movie_recsys/blob/main/movie_recsys/readme_images/movie_rec_pipeline.png" width="100%">
 </picture>
 
-*FIG. 0: Workflow diagram of the recommender system, highlighting the data engineering and machine learning pipelines.* 
-
-The deployed recommender can be tested by following [this link](https://nmfasano5-content-based-movie-recommendation-system.hf.space). A screenshot showing some example recommendations based on the movie input "Remember the Titans" is shown in the following figure. 
-
-In the remainder of this README.md file, we first discuss the datasets used in this project and how they were cleaned and processed for training the machine learning algorithms. We then build the LDA model for topic modeling of the film script dataset and integrate this model into the SVD model to form the complete CTM model. Finally, the CTM and SVD models are evaluated by computing the root mean square error (RMSE) and recall@k metrics on a set of data not seen during training. We conclude by discussing possible extensions to this hybrid approach such as using word embeddings instead of topic modeling for developing the content side of the algorithm.
-
-<picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/movie_recsys/readme_images/example_recsys_input.png" width="100%">
-</picture>
-<picture>
-<img src="https://github.com/nfasano/movie_recsys/blob/main/movie_recsys/readme_images/example_recsys_output.png" width="100%">
-</picture>
-
-*FIG. 1: Snapshot of the movie recommender web app deployed to Hugging Face's spaces. In this example, the user began searching for a movie and then selected "Remember the Titans" from the list of available movies. The user chooses various filters to be applied to the recommendations and clicks Recommend. At this point, 5 movie titles along with some metadata and IMDb.com links to the movies' title pages are shown.* 
-
+*FIG. 1: Workflow diagram of the recommender system, highlighting the data engineering and machine learning pipelines.* 
 ____________________________________________________________________________________________
 
 ### Datasets used in this work
@@ -197,7 +190,18 @@ The code contains the following features:
 
 1. The gradio code used to create the app. I chose to utilize gradio's low-level API ([Blocks](https://www.gradio.app/guides/quickstart#blocks-more-flexibility-and-control)) for building the app since it allows for more flexible layouts and data flows). 
 2. A movie recommendation function (def movie_rec) that takes in a movie, some filters, and then returns the most similar movies (plus that movie's metadata) from the cosine-similarity matrix after filtering out low-ranking and Adult films. 
-3. A Query parser (def update_radio(text)) that takes in the text from the search box and returns the most relevant movies from the dataset. The parser is case-insensitive and robust to punctuation and extraneous spaces, but it will not handle spelling mistakes. 
+3. A Query parser (def update_radio(text)) that takes in the text from the search box and returns the most relevant movies from the dataset. The parser is case-insensitive and robust to punctuation and extraneous spaces, but it will not handle spelling mistakes.
+
+The deployed recommender can be tested by following [this link](https://nmfasano5-content-based-movie-recommendation-system.hf.space). A screenshot showing some example recommendations based on the movie input "Remember the Titans" is shown in the following figure. 
+
+<picture>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/movie_recsys/readme_images/example_recsys_input.png" width="100%">
+</picture>
+<picture>
+<img src="https://github.com/nfasano/movie_recsys/blob/main/movie_recsys/readme_images/example_recsys_output.png" width="100%">
+</picture>
+
+*FIG. 8: Snapshot of the movie recommender web app deployed to Hugging Face's spaces. In this example, the user began searching for a movie and then selected "Remember the Titans" from the list of available movies. The user chooses various filters to be applied to the recommendations and clicks Recommend. At this point, 5 movie titles along with some metadata and IMDb.com links to the movies' title pages are shown.* 
 
 ____________________________________________________________________________________________
 
