@@ -220,16 +220,23 @@ In this work we developed a collaborative topic model (CTM) for movie recommenda
 
 ### Resources
 [1] J. Bennett, S. Lanning, et al., in Proceedings of KDD cup and workshop, Vol. 2007 (New York, 2007).
+
 [2] C. Wang and D. M. Blei, in Proceedings of the 17th ACM SIGKDD international conference on Knowledge discovery and
 data mining (2011).
-[3] https://github.com/nfasano/movie_recsys/.
-[4] https://huggingface.co/spaces/nmfasano5/content_based_movie_recommendation_system.
+
+[3] [https://github.com/nfasano/movie_recsys/](https://github.com/nfasano/movie_recsys/)
+
+[4] [https://huggingface.co/spaces/nmfasano5/content_based_movie_recommendation_system/](https://huggingface.co/spaces/nmfasano5/content_based_movie_recommendation_system/)
+
 [5] D. M. Blei, A. Y. Ng, and M. I. Jordan, Journal of machine Learning research 3, 993 (2003).
+
 [6] F. Pedregosa, G. Varoquaux, A. Gramfort, V. Michel, B. Thirion, O. Grisel, M. Blondel, P. Prettenhofer, R. Weiss,
 V. Dubourg, J. Vanderplas, A. Passos, D. Cournapeau, M. Brucher, M. Perrot, and E. Duchesnay, Journal of Machine
 Learning Research 12, 2825 (2011).
+
 [7] S. Syed and M. Spruit, in 2017 IEEE International conference on data science and advanced analytics (DSAA) (IEEE,
 2017).
+
 [8] D. M. Blei and J. D. Lafferty, in Proceedings of the 23rd international conference on Machine learning (2006) pp. 113–120.
 
 Other useful sites and blog posts:
