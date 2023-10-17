@@ -5,6 +5,7 @@ database/dataset_IMDb/ExploratoryAnalysis_sqlPracticeOne/
 database/dataset_IMDb/2023_02_12_IMDb_dataset/
 database/dataset_movieLens/*.csv
 database/dataset_the_numbers/
+movie_recsys/data_preprocessing_out/df_processed_CTM.csv
 eda_actor_network_graph/
 movie_recsys/model_building_out/hyperparameter_tuning/*.sav
 movie_recsys/__pycache__/

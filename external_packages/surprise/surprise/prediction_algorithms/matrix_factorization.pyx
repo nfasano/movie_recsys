@@ -393,7 +393,7 @@ class CTM(AlgoBase):
                  reg_bu=None, reg_bi=None, reg_pu=None, reg_qi=None, reg_theta=None,
                  random_state=None, verbose=False):
 
-        with open("C:\\Users\\Nick\\Documents\\DataScience\\movie_recsys\\recsys_content_based\\model_building_out\\Xtran.txt", "rb") as f:
+        with open("C:\\Users\\Nick\\Documents\\DataScience\\movie_recsys\\movie_recsys\\model_building_out\\Xtran.txt", "rb") as f:
             theta = pickle.load(f)
 
         self.theta = theta.copy()

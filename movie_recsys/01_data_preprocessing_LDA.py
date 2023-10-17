@@ -1,7 +1,7 @@
 """
-Preprocess film script dataset for LDA model, EDA on transformed data
+Preprocess film script dataset for LDA model
 
-Description: This notebook reads in the cleaned dataset from data_cleaning_and_synthesis.ipynb notebook and returns a bag-of-words representation, X, that will be used for model training. 
+Description: This notebook reads in the cleaned scripts dataset and returns a bag-of-words representation, X, that will be used for LDA model training. 
 
 The script data is first removed of stop words and, optionally, lemmatization is performed. The corpus is then represented using a bag-of-words model. 
 """
