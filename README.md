@@ -1,4 +1,4 @@
-# Enhancing Movie Recommendations with Collaborative Topic Modeling
+# Enhanced Movie Recommendations with Collaborative Topic Modeling
 
 Welcome to this GitHub repository explaining my journey into building an end-to-end movie recommender system. Inspired by the captivating influence of Tik-Tok's personalized feed and a strong desire to learn how industry recommender systems are designed, I am on a journey to learn the inner workings of cutting-edge recommendation systems.
 
