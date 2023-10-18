@@ -1,6 +1,6 @@
 # Enhanced Movie Recommendations with Collaborative Topic Modeling
 
-Welcome to this GitHub repository explaining my journey into building an end-to-end movie recommender system. Inspired by the captivating influence of Tik-Tok's personalized feed and a strong desire to learn how industry recommender systems are designed, I am on a journey to learn the inner workings of cutting-edge recommendation systems.
+Welcome to this GitHub repository explaining my journey into building an end-to-end movie recommender system. Inspired by the captivating influence of Tik-Tok's personalized feed and a strong desire to learn how industry recommender systems are designed, I am on a mission to learn the inner workings of cutting-edge recommendation systems.
 
 Just came here for a great movie recommendation - follow [this link](https://nmfasano5-content-based-movie-recommendation-system.hf.space) to get your recommendation now!
 
