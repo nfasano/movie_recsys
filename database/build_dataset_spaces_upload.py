@@ -4,7 +4,7 @@
 import pandas as pd
 
 
-def dataset_synthesis():
+def build_dataset_spaces_upload():
     """
     inputs:
             (none)
