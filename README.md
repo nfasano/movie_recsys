@@ -183,7 +183,6 @@ _
 ____________________________________________________________________________________________
 
 ### Model deployment
-(see [gradio_app.ipynb](https://github.com/nfasano/movie_recsys/blob/main/recsys_content_based/gradio_app.ipynb) notebook for implementation)
 To deploy the developed model, we built a web-based app using [gradio](https://www.gradio.app/) and then hosted the app on [Hugging Face Spaces](https://huggingface.co/spaces), which allows the application to be available permanently and for free.
 
 The code contains the following features:
