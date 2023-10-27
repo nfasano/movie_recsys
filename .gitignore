@@ -1,4 +1,5 @@
 
+# ignore database storage
 database/dataset_film_scripts/scraped_scripts/
 database/dataset_film_scripts/*.csv
 database/dataset_IMDb/ExploratoryAnalysis_sqlPracticeOne/
@@ -7,12 +8,21 @@ database/dataset_movieLens/*.csv
 database/dataset_tmdb/posters/*.png
 database/dataset_tmdb/df_tmdb_description.csv
 database/dataset_the_numbers/
+
+# ignore large .csv and .sav (LDA models) 
 movie_recsys/data_preprocessing_out/df_processed_CTM.csv
-eda_actor_network_graph/
 movie_recsys/model_building_out/hyperparameter_tuning/*.sav
 movie_recsys/__pycache__/
-__pycache__/
-hollywood_network/df_final.csv
-embeddings/df_embeddings.csv
 movie_recsys/.ipynb_checkpoints/
+
+hollywood_network/df_network.csv
+
+# ignore embeddings storage and final images
+embeddings/embeddings_storage/
+embeddings/images/
+
+# ignore all powerpoint presentations
 *.pptx
+
+# other
+__pycache__/
