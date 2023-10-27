@@ -15,6 +15,7 @@ movie_recsys/model_building_out/hyperparameter_tuning/*.sav
 movie_recsys/__pycache__/
 movie_recsys/.ipynb_checkpoints/
 
+# ignore df_netwrok.csv file (>1GB)
 hollywood_network/df_network.csv
 
 # ignore embeddings storage and final images
