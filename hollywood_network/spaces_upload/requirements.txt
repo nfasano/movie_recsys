@@ -1,4 +1,0 @@
-pyvis
-networkx
-numpy
-pandas
