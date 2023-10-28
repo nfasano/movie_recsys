@@ -1,3 +1,17 @@
+"""
+## 07b_model_deployment_gradio_app.ipynb
+
+Description: 
+    Build recommender app using Gradio toolkit to be deployed on Hugging Face's spaces
+
+External Dependencies:
+    - LDA topic vectors from "model_building_out\\film_topic_vectors.txt" 
+    - df_spaces_upload from "..\\database\\df_spaces_upload.csv"
+
+Returns:
+    - web application that can be deployed to Hugging Face
+"""
+
 import gradio as gr
 import pickle
 import requests
@@ -6,12 +20,13 @@ import numpy as np
 import re
 from sklearn.metrics.pairwise import cosine_similarity
 
-
-df = pd.read_csv("dataset_spaces_upload.csv", index_col=[0])
+# load in df_spaces_upload DataFrame
+df = pd.read_csv("df_spaces_upload.csv", index_col=[0])
 df["tmdb_poster_link"] = df["tmdb_poster_link"].fillna("NULL")
 df["imdb_link"] = df["imdb_link"].fillna("NULL")
+
 # read in (precomputed) transformed movie matrix data (num_movies x num_topics)
-with open("Xtran.txt", "rb") as f:
+with open("film_topic_vectors.txt", "rb") as f:
     Xtran = pickle.load(f)
 
 # construct cleaned list of movie names
@@ -42,8 +57,15 @@ tested_examples = [
 
 
 def construct_markdown_link(links, link_names):
-    # Construct links in markdown style. Used in movie_rec function
-    # when constructing the output dataframe
+    # Description:
+    #       Construct links in markdown style. Used in movie_rec function
+    #       when constructing the output dataframe
+    # Args:
+    #       links (list of str): url links
+    #       link_names (list of str): name to be displayed for clickable link
+    # Returns:
+    #       list of strings containing markdown syntax for clickable link in Gradio app
+
     return [
         "<span style='color: #0000EE;'> **<ins> ["
         + jname
@@ -65,10 +87,11 @@ def set_output_visibility_false():
 
 
 def update_radio(text):
-    # Update radio choices based on text in search_bar
-    # input:
-    #       text - string from search_bar
-    # output:
+    # Description:
+    #       This function updates radio choices based on text in search_bar
+    # Args:
+    #       text (str): string from search_bar
+    # Returns:
     #       radio.update(choices=new_choices)
 
     if text is None:
@@ -115,13 +138,14 @@ def update_radio(text):
             )
 
 
-def movie_rec(movie_name, rating_min, is_adult):
-    # compute top 5 movie recommendations for the input movie and filters
-    # inputs:
-    #       movie_name: selected movie_name from radio
-    #       rating_min: filter out all movies with ratings less than rating_min
-    #       is_adult: if True then filter out adult titles
-    # ouputs:
+def movie_rec(movie_name, rating_min, is_adult=True):
+    # Description:
+    #       This function computes top 5 movie recommendations for the input movie and filters
+    # Args:
+    #       movie_name (str): selected movie_name from radio
+    #       rating_min (int): filter out all movies with ratings less than rating_min
+    #       is_adult (Bool): if True then filter out adult titles
+    # Reutrns:
     #       df_in: dataframe with all the info on movie_name
     #       df_out: dataframe with all the info on top 5 recommended movies
 

@@ -1,6 +1,9 @@
 """
-01_data_preprocessing_LDA.py: Run this python file to create bag of words of film script dataset 
-which will be fed into LDA model. Options: remove stopwords, lemmatization/stemming, word mapping
+01_data_preprocessing_LDA.py
+
+Description:
+    Run this python file to create bag of words of film script dataset 
+    which will be fed into LDA model. Options: remove stopwords, lemmatization/stemming, word mapping
 
 External Dependencies:
     springfield_movie_scripts.csv: Read in as a Pd.DataFrame. Must contain the column 'script_text'
