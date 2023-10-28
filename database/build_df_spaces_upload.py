@@ -1,21 +1,27 @@
-# Synthesize datasets from all sources into one dataframe that will be deployed with recommender
-# This notebook should be run anytime the dataset is updated
+# build_df_spaces_upload.py
 
 import pandas as pd
 
 
-def build_dataset_spaces_upload():
+def build_df_spaces_upload():
     """
-    inputs:
+    Build the dataset that will be deployed to Hugging Face for serving
+    movie recommendations.
+
+    Dependencies:
+            "dataset_film_scripts\\springfield_movie_scripts.csv"
+            "dataset_IMDb\\2023_02_12_IMDb_dataset\\titleRatings.tsv"
+            "dataset_IMDb\\2023_02_12_IMDb_dataset\\titleBasics.tsv"
+
+    Args:
             (none)
-    outputs:
-            df, a pd.DataFrame, synthesized scripts and IMDb dataset
+
+    Returns:
+            df (pd.DataFrame): DataFrame that combines scripts and IMDb datasets
     """
 
     # relative locations of csv snd tsv datasets
-    path_to_scripts_csv = (
-        "dataset_film_scripts\\springfield_movie_scripts_2023_01_13_clean.csv"
-    )
+    path_to_scripts_csv = "dataset_film_scripts\\springfield_movie_scripts.csv"
     path_to_imdb_ratings_tsv = "dataset_IMDb\\2023_02_12_IMDb_dataset\\titleRatings.tsv"
     path_to_imdb_titles_tsv = "dataset_IMDb\\2023_02_12_IMDb_dataset\\titleBasics.tsv"
 
