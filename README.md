@@ -97,7 +97,7 @@ The ratings matrix obtained from MovieLens is already in a form ready to be used
 FIG. 2 shows the top 60 words and their word count across the entire corpus after the removal of stop words and words present in greater than 90% of the documents. For this figure, lemmatization was turned off during preprocessing which is why the words "friend" and "friends" appear. Here we see the diversity of words present in the corpus where the topic of family seems especially prevalent (e.g. words like mom, mother, baby, son, wife, father, and brother).
 
 <picture>
-	<img src="https://github.com/nfasano/movie_recsys/blob/main/movie_recsys/eda_scripts_out/word_count_top_100.png" width="100%">
+	<img src="https://github.com/nfasano/movie_recsys/blob/main/movie_recsys/eda_plots_out/word_count_top_100.png" width="100%">
 </picture>
 
 *FIG. 2: Word count for the top 60 words present in the vocabulary after data preprocessing.* 
