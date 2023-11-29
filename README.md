@@ -6,7 +6,9 @@ Just came here for a great movie recommendation - follow [this link](https://nmf
 
 In this repo: 
 - The 'database' folder contains the datasets used in this project, including the Python code used for web scraping, wrangling, and synthesizing the datasets.
+- The 'embeddings' folder contains a Jupyter notebook where I experiment with cutting-edge image and word embedding models to enhance movie recommendations.
 - The 'external_packages' folder contains open source repositories that were cloned and modified to create the collaborative topic model.
+- The 'hollywood_network' folder contains a Jupyter notebook showing how to build a network graph for directors and actors in Hollywood (write-up coming soon).
 - The 'movie_recsys' folder contains notebooks and Python scripts used to create the movie recommender system based on the collaborative topic model. 
 - The 'model_testing' folder contains notebooks for prototyped models
 - This README.md file details the full life-cycle of the deployed recommender system, especially the data engineering and machine learning pipelines.
